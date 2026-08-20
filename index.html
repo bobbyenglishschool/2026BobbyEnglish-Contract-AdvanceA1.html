@@ -377,7 +377,7 @@
 </div>
 
 <div class="page-container">
-    <!-- 🎯 FormSubmit 原生通道 (已綁定 onsubmit 防呆與非同步 GAS 備份) -->
+    <!-- 🎯 FormSubmit 原生通道 (已綁定 onsubmit 防呆與非同步 GAS 簽章備份) -->
     <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="return prepareSubmit(event)">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
@@ -672,6 +672,9 @@ function prepareSubmit(event) {
         return false;
     }
     
+    // 🎯 擷取 Canvas 畫布之親筆電子簽章 Base64 數據
+    var pSigData = parentCanvas.style.display !== 'none' ? parentCanvas.toDataURL("image/png") : "";
+
     document.getElementById('signature_parent_base64').value = "[已於線上完成親筆電子簽章]";
     document.getElementById('signature_staff_base64').value = hasSignedStaff ? "[行政人員已完成電子核章]" : "[待行政核章]";
 
@@ -702,6 +705,7 @@ function prepareSubmit(event) {
         feeDetails: document.getElementById('hidden_total').value,
         notes: "契約線上簽署確認",
         parentSignature: "已完成電子簽章",
+        parentSignatureBase64: pSigData, // 🎯 傳送手寫簽章的 Base64 圖片數據給 GAS 存檔至 Google Drive！
         cardUrl: document.getElementById('print_link_url').value
     };
 

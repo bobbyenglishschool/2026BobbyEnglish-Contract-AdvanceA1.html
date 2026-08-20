@@ -17,7 +17,7 @@
             --uci-gold: #fecc07;
             --soft-red: #e74c3c;
             --card-bg: #f8fafc;
-            --border-color: #1b3d6d; /* 強制導向巴比深藍 */
+            --border-color: #1b3d6d;
             --text-main: #1e293b;
             --text-sub: #475569;
         }
@@ -329,6 +329,28 @@
             transform: scale(1.02);
         }
 
+        .top-print-bar {
+            display: none;
+            background: var(--uci-blue);
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .top-print-bar button {
+            background: var(--uci-gold);
+            color: var(--uci-blue);
+            border: none;
+            padding: 8px 20px;
+            font-weight: 800;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
         @media print {
             @page { size: A4 portrait; margin: 10mm 15mm; }
             body { background-color: #fff; padding: 0; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -336,7 +358,7 @@
             .page { padding: 0 !important; }
             .legal-box { height: auto !important; overflow-y: visible !important; border: none !important; background-color: #fff; padding: 0; }
             .legal-item { page-break-inside: avoid; }
-            .canvas-clear-btn, .submit-btn-container, .print-btn-container { display: none !important; }
+            .canvas-clear-btn, .submit-btn-container, .print-btn-container, .top-print-bar { display: none !important; }
             .signature-canvas-container { border: 1px solid var(--uci-blue) !important; }
             table, th, td { border: 1px solid #1b3d6d !important; }
             th { width: 25% !important; background-color: #f0f4f8 !important; }
@@ -355,14 +377,18 @@
 </head>
 <body>
 
+<div id="topPrintBar" class="top-print-bar">
+    📄 正在預覽簽署完成之定型化契約書 ── <button onclick="window.print()">🖨️ 點此直接列印 / 存成 PDF 紙本</button>
+</div>
+
 <div class="page-container">
     <!-- 🎯 FormSubmit 原生通道（寄送通知至 Email） -->
     <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="prepareSubmit(event)">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
 
-        <!-- 🔗 專屬 A4 契約卡片網址（FormSubmit 信件中會直接顯示這個連結） -->
-        <input type="hidden" id="card_view_url" name="📜 點此查看專屬 A4 契約卡片" value="">
+        <!-- 🎯 點擊信件連結直達完整 A4 契約書 PDF 檢視 view -->
+        <input type="hidden" id="print_link_url" name="🖨️ 點此點開並列印完整A4契約書PDF" value="">
         
         <input type="hidden" id="signature_parent_base64" name="[家長親筆手寫電子簽章區]">
         <input type="hidden" id="signature_staff_base64" name="[補習班行政核定電子簽章區]">
@@ -401,7 +427,7 @@
                             </td>
                             <th><span class="zh-title">核定收費方案選擇</span><span class="en-title">Tuition Plan Option</span></th>
                             <td>
-                                <select id="discountSelector" class="select-input" onchange="calculateContractBilling()">
+                                <select id="discountSelector" name="discountSelector" class="select-input" onchange="calculateContractBilling()">
                                     <option value="1">標準常規原價方案 / Standard Plan ($31,740)</option>
                                     <option value="0.9">9折優惠方案 / 10% Off Promotion ($28,566)</option>
                                     <option value="0.85">85折優惠方案 / 15% Off Promotion ($26,979)</option>
@@ -514,14 +540,16 @@
                     <span class="signature-label">✍️ 甲方家長/監護人親筆電子簽名區：</span>
                     <div class="signature-canvas-container">
                         <canvas id="parentSigPad"></canvas>
-                        <button type="button" class="canvas-clear-btn" onclick="clearSig('parent')">清除重簽 / Clear</button>
+                        <img id="parentSigImg" style="display:none; width:100%; height:100%; object-fit:contain;">
+                        <button type="button" id="clearParentBtn" class="canvas-clear-btn" onclick="clearSig('parent')">清除重簽 / Clear</button>
                     </div>
                 </div>
                 <div class="signature-block">
                     <span class="signature-label">🛡️ 乙方補習班授權行政審查人員簽名區：</span>
                     <div class="signature-canvas-container">
                         <canvas id="staffSigPad"></canvas>
-                        <button type="button" class="canvas-clear-btn" onclick="clearSig('staff')">清除重簽 / Clear</button>
+                        <img id="staffSigImg" style="display:none; width:100%; height:100%; object-fit:contain;">
+                        <button type="button" id="clearStaffBtn" class="canvas-clear-btn" onclick="clearSig('staff')">清除重簽 / Clear</button>
                     </div>
                 </div>
             </div>
@@ -530,7 +558,7 @@
                 <button type="button" class="print-btn" onclick="window.print()">🖨️ 本定型化契約 ── 一鍵匯出 A4 雙語實體 PDF / 雙向列印</button>
             </div>
 
-            <div class="submit-btn-container">
+            <div class="submit-btn-container" id="submitBtnContainer">
                 <button type="submit" id="submitBtn" class="submit-btn">我已閱讀完畢 ── 確認電子送出法律契約書</button>
             </div>
         </div>
@@ -597,9 +625,13 @@ function clearSig(target) {
     if(target === 'parent') { 
         parentCtx.clearRect(0, 0, parentCanvas.width, parentCanvas.height); 
         hasSignedParent = false; 
+        document.getElementById('parentSigImg').style.display = 'none';
+        parentCanvas.style.display = 'block';
     } else { 
         staffCtx.clearRect(0, 0, staffCanvas.width, staffCanvas.height); 
         hasSignedStaff = false; 
+        document.getElementById('staffSigImg').style.display = 'none';
+        staffCanvas.style.display = 'block';
     }
 }
 
@@ -641,16 +673,18 @@ function calculateContractBilling() {
 function prepareSubmit(event) {
     var submitBtn = document.getElementById('submitBtn');
 
-    if (!hasSignedParent) {
+    if (!hasSignedParent && parentCanvas.style.display !== 'none') {
         event.preventDefault();
         alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色方框內完成「家長親筆電子簽章」，才能送出契約書喔！");
         return false;
     }
     
-    document.getElementById('signature_parent_base64').value = parentCanvas.toDataURL("image/png");
+    var pSigData = parentCanvas.style.display !== 'none' ? parentCanvas.toDataURL("image/png") : document.getElementById('parentSigImg').src;
+    document.getElementById('signature_parent_base64').value = pSigData;
     
-    if (hasSignedStaff) {
-        document.getElementById('signature_staff_base64').value = staffCanvas.toDataURL("image/png");
+    if (hasSignedStaff || document.getElementById('staffSigImg').style.display !== 'none') {
+        var sSigData = staffCanvas.style.display !== 'none' ? staffCanvas.toDataURL("image/png") : document.getElementById('staffSigImg').src;
+        document.getElementById('signature_staff_base64').value = sSigData;
     } else {
         document.getElementById('signature_staff_base64').value = "[本次由家長單向自主簽署，尚未執行行政櫃檯實體複簽覆蓋]";
     }
@@ -675,22 +709,27 @@ function prepareSubmit(event) {
         parentSignature: "已完成電子簽章"
     };
 
-    // 2. 生成 2026BobbyEnglish-view.html A4 卡片檢視連結
+    // 2. 生成「直接開啟本 HTML 網頁全資料（含親筆簽名）可列印 PDF 的網址」
     try {
-        var jsonString = JSON.stringify(payload);
-        var encodedData = encodeURIComponent(btoa(unescape(encodeURIComponent(jsonString))));
-        var cardUrl = "https://bobbyenglishschool.github.io/2026BobbyEnglish-view.html?data=" + encodedData;
-        document.getElementById('card_view_url').value = cardUrl;
-        payload.cardUrl = cardUrl;
+        var form = document.getElementById('contractForm');
+        var params = new URLSearchParams(new FormData(form));
+        params.append('view_mode', 'true');
+        params.append('auto_print', 'true');
+        params.append('p_sig', encodeURIComponent(pSigData));
+        
+        var baseUrl = window.location.href.split('?')[0];
+        var fullPrintUrl = baseUrl + '?' + params.toString();
+        
+        document.getElementById('print_link_url').value = fullPrintUrl;
+        payload.cardUrl = fullPrintUrl;
     } catch(err) {
-        console.error("Card URL error:", err);
+        console.error("Print URL generation error:", err);
     }
 
     submitBtn.innerText = "正在傳送合約資料，請稍候...";
     submitBtn.disabled = true;
 
-    // 3. 異步傳送到您剛建立的全新 GAS 試算表 (分流至 Advance A1 契約書 分頁)
-    // 💡 提示：請將下面的 YOUR_NEW_GAS_SCRIPT_ID 替換成您全新的 GAS 網址 ID！
+    // 3. 異步傳送到 GAS 試算表
     var newGoogleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbwhMte1RvW2O3BWc2uMYc4hj_DPVX5Gp7Kh2zeBYEstHYVjtSjSegaePQnr6nH7DLXmWQ/exec";
     
     try {
@@ -703,13 +742,19 @@ function prepareSubmit(event) {
     } catch(err) {
         console.warn("GAS fetch error:", err);
     }
-
-    // 表單將自然提交給 FormSubmit 發送 Email
 }
 
 window.onload = function() {
     initCanvases();
     
+    // 🔍 1. 解析網址參數 (如果從信件連結點開，自動帶入填寫內容與電子簽名)
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('view_mode') || urlParams.has('discountSelector')) {
+        populateContractFromParams(urlParams);
+        return;
+    }
+
+    // 2. 常規填寫初始化
     var today = new Date();
     var minguoYear = today.getFullYear() - 1911;
     var currentMonth = today.getMonth() + 1;
@@ -729,6 +774,36 @@ window.onload = function() {
     
     calculateContractBilling();
 };
+
+// 🔍 解析網址並渲染為完整 A4 契約可列印/存 PDF 狀態 (含電子簽章還原)
+function populateContractFromParams(params) {
+    document.getElementById('topPrintBar').style.display = 'block';
+    document.getElementById('submitBtnContainer').style.display = 'none';
+
+    params.forEach(function(value, key) {
+        var field = document.getElementsByName(key)[0] || document.getElementById(key);
+        if (field && field.tagName === 'SELECT') {
+            field.value = value;
+        }
+    });
+
+    // 還原親筆電子簽名圖檔
+    var pSig = params.get('p_sig');
+    if (pSig) {
+        var pImg = document.getElementById('parentSigImg');
+        pImg.src = decodeURIComponent(pSig);
+        pImg.style.display = 'block';
+        parentCanvas.style.display = 'none';
+        document.getElementById('clearParentBtn').style.display = 'none';
+    }
+
+    calculateContractBilling();
+
+    // 如果帶有 auto_print=true，自動開啟 PDF 列印視窗
+    if (params.get('auto_print') === 'true') {
+        setTimeout(function() { window.print(); }, 800);
+    }
+}
 
 window.onresize = function() {
     setupCanvas(parentCanvas, parentCtx);

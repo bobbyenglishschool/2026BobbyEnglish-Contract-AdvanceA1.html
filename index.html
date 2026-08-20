@@ -377,8 +377,8 @@
 </div>
 
 <div class="page-container">
-    <!-- 🎯 FormSubmit 原生通道（寄送通知至 Email） -->
-    <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST">
+    <!-- 🎯 FormSubmit 原生通道 (已補回 onsubmit 防呆與發射機制) -->
+    <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="return prepareSubmit(event)">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
 
@@ -493,7 +493,6 @@
                     (6) 代辦之教材費若已購置並已發放予甲方者，該項目不予退還，教材歸甲方所有。<br>
                     <span class="legal-en">In accordance with the Taoyuan City Cram School Refund Regulations, refunds shall be processed within 7 days based on the following:<br>(1) Requested 30 days or more before start date: Full 100% refund of total fees paid.<br>(2) Requested within 1 to 29 days before start date: 90% refund of total fees paid (capped at NT$1,000 deduction).<br>(3) Requested within 5 days from start date: 80% refund of total fees paid.<br>(4) Requested from the 6th day until 1/3 of total course term: 50% refund of total fees paid.<br>(5) Requested after 1/3 of total course term: Fees collected may be entirely non-refundable.<br>(6) Issued materials or textbooks are non-refundable and belong to the student.</span>
                 </div>
-                <!-- 🎯 100% 完整補回 7~11 條條款 -->
                 <div class="legal-item">
                     <strong>第七條：學員請假規範與導師編制補課機制 / Article 7: Absence, Leave Notification, and Make-up Tutoring：</strong><br>
                     1. 學生若因病、因事假無法出席，監護人應於上課前兩小時透過官方 LINE 帳號或專線完成請假登記。<br>
@@ -536,7 +535,7 @@
                     <span class="signature-label">✍️ 甲方家長/監護人親筆電子簽名區：</span>
                     <div class="signature-canvas-container">
                         <canvas id="parentSigPad"></canvas>
-                        <img id="parentSigImg" style="display:none; width:100%; height:100%; object-fit:contain;">
+                        <img id="parentSigImg" style="display:none; width:100%; height:100%; object-fit:contain;" alt="家長簽名">
                         <button type="button" id="clearParentBtn" class="canvas-clear-btn" onclick="clearSig('parent')">清除重簽 / Clear</button>
                     </div>
                 </div>
@@ -544,7 +543,7 @@
                     <span class="signature-label">🛡️ 乙方補習班授權行政審查人員簽名區：</span>
                     <div class="signature-canvas-container">
                         <canvas id="staffSigPad"></canvas>
-                        <img id="staffSigImg" style="display:none; width:100%; height:100%; object-fit:contain;">
+                        <img id="staffSigImg" style="display:none; width:100%; height:100%; object-fit:contain;" alt="行政簽名">
                         <button type="button" id="clearStaffBtn" class="canvas-clear-btn" onclick="clearSig('staff')">清除重簽 / Clear</button>
                     </div>
                 </div>
@@ -667,16 +666,14 @@ function calculateContractBilling() {
 }
 
 function prepareSubmit(event) {
-    var submitBtn = document.getElementById('submitBtn');
-
     if (!hasSignedParent && parentCanvas.style.display !== 'none') {
-        event.preventDefault();
+        if(event) event.preventDefault();
         alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色方框內完成「家長親筆電子簽章」，才能送出契約書喔！");
         return false;
     }
     
-    var pSigData = parentCanvas.style.display !== 'none' ? parentCanvas.toDataURL("image/png") : document.getElementById('parentSigImg').src;
     document.getElementById('signature_parent_base64').value = "[已於線上完成親筆電子簽章]";
+    document.getElementById('signature_staff_base64').value = hasSignedStaff ? "[行政人員已完成電子核章]" : "[待行政核章]";
 
     // 打包極簡乾淨可點擊超連結
     try {
@@ -720,16 +717,12 @@ function prepareSubmit(event) {
     } catch(err) {
         console.warn("GAS fetch error:", err);
     }
+
+    return true; // 🎯 確保 FormSubmit 能順利接手原生提交
 }
 
 window.onload = function() {
     initCanvases();
-    
-    var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('view_mode') || urlParams.has('discountSelector')) {
-        populateContractFromParams(urlParams);
-        return;
-    }
 
     var today = new Date();
     var minguoYear = today.getFullYear() - 1911;
@@ -747,7 +740,13 @@ window.onload = function() {
     if(document.getElementById('currentDateDisplay')) {
         document.getElementById('currentDateDisplay').innerText = today.getFullYear() + " 年 " + currentMonth + " 月 " + currentDate + " 日";
     }
-    
+
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('view_mode') || urlParams.has('discountSelector')) {
+        populateContractFromParams(urlParams);
+        return;
+    }
+
     calculateContractBilling();
 };
 

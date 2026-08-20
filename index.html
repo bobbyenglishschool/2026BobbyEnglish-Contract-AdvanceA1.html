@@ -140,8 +140,6 @@
             color: var(--uci-blue);
             font-size: 13.5px;
             text-align: center !important;
-            vertical-align: middle !important;
-            line-height: 1.4;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -167,9 +165,7 @@
             background-color: #f0f4f8;
             padding: 14px 18px;
             border-left: 4px solid var(--uci-blue);
-            border-top: 1px solid #1b3d6d !important;
-            border-right: 1px solid #1b3d6d !important;
-            border-bottom: 1px solid #1b3d6d !important;
+            border: 1px solid #1b3d6d !important;
             font-size: 13px;
             margin-bottom: 20px;
             border-radius: 6px;
@@ -207,7 +203,6 @@
 
         .legal-en {
             color: var(--text-sub);
-            font-style: normal;
             display: block;
             margin-top: 4px;
             font-size: 11.5px;
@@ -387,8 +382,8 @@
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
 
-        <!-- 🎯 點擊信件連結直達完整 A4 契約書 PDF 檢視 view -->
-        <input type="hidden" id="print_link_url" name="🖨️ 點此點開並列印完整A4契約書PDF" value="">
+        <!-- 🎯 精簡短網址：可生成標準可點擊藍色超連結 -->
+        <input type="hidden" id="print_link_url" name="🖨️ 點此開啟完整A4契約書並列印" value="">
         
         <input type="hidden" id="signature_parent_base64" name="[家長親筆手寫電子簽章區]">
         <input type="hidden" id="signature_staff_base64" name="[補習班行政核定電子簽章區]">
@@ -498,6 +493,7 @@
                     (6) 代辦之教材費若已購置並已發放予甲方者，該項目不予退還，教材歸甲方所有。<br>
                     <span class="legal-en">In accordance with the Taoyuan City Cram School Refund Regulations, refunds shall be processed within 7 days based on the following:<br>(1) Requested 30 days or more before start date: Full 100% refund of total fees paid.<br>(2) Requested within 1 to 29 days before start date: 90% refund of total fees paid (capped at NT$1,000 deduction).<br>(3) Requested within 5 days from start date: 80% refund of total fees paid.<br>(4) Requested from the 6th day until 1/3 of total course term: 50% refund of total fees paid.<br>(5) Requested after 1/3 of total course term: Fees collected may be entirely non-refundable.<br>(6) Issued materials or textbooks are non-refundable and belong to the student.</span>
                 </div>
+                <!-- 🎯 100% 完整補回 7~11 條條款 -->
                 <div class="legal-item">
                     <strong>第七條：學員請假規範與導師編制補課機制 / Article 7: Absence, Leave Notification, and Make-up Tutoring：</strong><br>
                     1. 學生若因病、因事假無法出席，監護人應於上課前兩小時透過官方 LINE 帳號或專線完成請假登記。<br>
@@ -640,9 +636,9 @@ function calculateContractBilling() {
     
     var pricePerLesson = 770;
     var lessons = 34;
-    var rawTuition = pricePerLesson * lessons; // $26,180
-    var rawMaterials = 3520;                    // $3,520 ($2,770 + $750)
-    var rawMisc = 60 * lessons;                 // $2,040
+    var rawTuition = pricePerLesson * lessons;
+    var rawMaterials = 3520;
+    var rawMisc = 60 * lessons;
     
     var calculatedTuition = Math.round(rawTuition * discountRatio);
     var calculatedMaterials = Math.round(rawMaterials * discountRatio);
@@ -670,7 +666,6 @@ function calculateContractBilling() {
     document.getElementById('formSubject').value = "【法律合約完成-" + discountText + "】Advance A1 兒童進階美語";
 }
 
-// 🎯 核心修復：先發送背景 GAS，完成後讓 FormSubmit 正常完成 HTTP 郵件提交！
 function prepareSubmit(event) {
     var submitBtn = document.getElementById('submitBtn');
 
@@ -681,35 +676,21 @@ function prepareSubmit(event) {
     }
     
     var pSigData = parentCanvas.style.display !== 'none' ? parentCanvas.toDataURL("image/png") : document.getElementById('parentSigImg').src;
-    document.getElementById('signature_parent_base64').value = pSigData;
-    
-    if (hasSignedStaff || document.getElementById('staffSigImg').style.display !== 'none') {
-        var sSigData = staffCanvas.style.display !== 'none' ? staffCanvas.toDataURL("image/png") : document.getElementById('staffSigImg').src;
-        document.getElementById('signature_staff_base64').value = sSigData;
-    } else {
-        document.getElementById('signature_staff_base64').value = "[本次由家長單向自主簽署，尚未執行行政櫃檯實體複簽覆蓋]";
+    document.getElementById('signature_parent_base64').value = "[已於線上完成親筆電子簽章]";
+
+    // 打包極簡乾淨可點擊超連結
+    try {
+        var disc = document.getElementById('discountSelector').value;
+        var baseUrl = window.location.href.split('?')[0];
+        var cleanPrintUrl = baseUrl + '?view_mode=true&auto_print=true&discountSelector=' + disc;
+        document.getElementById('print_link_url').value = cleanPrintUrl;
+    } catch(err) {
+        console.error("Print URL error:", err);
     }
 
     var now = new Date();
     var timeString = now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
 
-    // 1. 打包生成 FormSubmit 點擊列印網址 (含簽名檔)
-    try {
-        var form = document.getElementById('contractForm');
-        var params = new URLSearchParams(new FormData(form));
-        params.append('view_mode', 'true');
-        params.append('auto_print', 'true');
-        params.append('p_sig', encodeURIComponent(pSigData));
-        
-        var baseUrl = window.location.href.split('?')[0];
-        var fullPrintUrl = baseUrl + '?' + params.toString();
-        
-        document.getElementById('print_link_url').value = fullPrintUrl;
-    } catch(err) {
-        console.error("Print URL generation error:", err);
-    }
-
-    // 2. 打包資料同步發送給 GAS 試算表
     var payload = {
         type: "contract",
         course: "Advance A1",
@@ -729,7 +710,6 @@ function prepareSubmit(event) {
 
     var newGoogleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbwhMte1RvW2O3BWc2uMYc4hj_DPVX5Gp7Kh2zeBYEstHYVjtSjSegaePQnr6nH7DLXmWQ/exec";
     
-    // 異步非同步發送 GAS，並確保 FormSubmit 不會被死死攔截
     try {
         fetch(newGoogleAppsScriptUrl, {
             method: 'POST',
@@ -740,24 +720,17 @@ function prepareSubmit(event) {
     } catch(err) {
         console.warn("GAS fetch error:", err);
     }
-
-    if (submitBtn) {
-        submitBtn.innerText = "正在傳送合約資料，請稍候...";
-        submitBtn.disabled = true;
-    }
 }
 
 window.onload = function() {
     initCanvases();
     
-    // 🔍 1. 解析網址參數 (如果從信件連結點開，自動帶入填寫內容與電子簽名)
     var urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('view_mode') || urlParams.has('discountSelector')) {
         populateContractFromParams(urlParams);
         return;
     }
 
-    // 2. 常規填寫初始化
     var today = new Date();
     var minguoYear = today.getFullYear() - 1911;
     var currentMonth = today.getMonth() + 1;
@@ -788,15 +761,6 @@ function populateContractFromParams(params) {
             field.value = value;
         }
     });
-
-    var pSig = params.get('p_sig');
-    if (pSig) {
-        var pImg = document.getElementById('parentSigImg');
-        pImg.src = decodeURIComponent(pSig);
-        pImg.style.display = 'block';
-        parentCanvas.style.display = 'none';
-        document.getElementById('clearParentBtn').style.display = 'none';
-    }
 
     calculateContractBilling();
 

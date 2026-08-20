@@ -163,22 +163,6 @@
             outline: none;
         }
 
-        .text-input {
-            border: none;
-            background: transparent;
-            width: 100%;
-            height: 100%;
-            outline: none;
-            font-family: inherit;
-            color: inherit;
-            font-size: 13px;
-            padding: 4px;
-        }
-
-        .text-input:focus, .select-input:focus {
-            background-color: rgba(254, 204, 7, 0.15);
-        }
-
         .privacy-statement {
             background-color: #f0f4f8;
             padding: 14px 18px;
@@ -372,12 +356,12 @@
 <body>
 
 <div class="page-container">
-    <!-- 🎯 Formspree 傳送設定 -->
-    <form id="contractForm" action="https://formspree.io/f/mkjwkynk" method="POST" onsubmit="prepareSubmit(event)">
+    <!-- 🎯 FormSubmit 原生通道（寄送通知至 Email） -->
+    <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="prepareSubmit(event)">
+        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
-        <input type="hidden" id="replyTo" name="_replyto" value="joy@bobbyenglishschool.com">
 
-        <!-- 🔗 Formspree 專屬：信件內會直接呈現這個卡片連結 -->
+        <!-- 🔗 專屬 A4 契約卡片網址（FormSubmit 信件中會直接顯示這個連結） -->
         <input type="hidden" id="card_view_url" name="📜 點此查看專屬 A4 契約卡片" value="">
         
         <input type="hidden" id="signature_parent_base64" name="[家長親筆手寫電子簽章區]">
@@ -655,7 +639,6 @@ function calculateContractBilling() {
 }
 
 function prepareSubmit(event) {
-    var form = document.getElementById('contractForm');
     var submitBtn = document.getElementById('submitBtn');
 
     if (!hasSignedParent) {
@@ -675,7 +658,7 @@ function prepareSubmit(event) {
     var now = new Date();
     var timeString = now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
 
-    // 打包資料並自動編碼生成專屬 view.html 卡片網址
+    // 1. 打包契約資料
     var payload = {
         type: "contract",
         course: "Advance A1",
@@ -688,26 +671,30 @@ function prepareSubmit(event) {
         email: "joy@bobbyenglishschool.com",
         className: "Advance A1 學生短期補習服務契約書",
         feeDetails: document.getElementById('hidden_total').value,
-        notes: "契約線上簽署確認"
+        notes: "契約線上簽署確認",
+        parentSignature: "已完成電子簽章"
     };
 
+    // 2. 生成 2026BobbyEnglish-view.html A4 卡片檢視連結
     try {
         var jsonString = JSON.stringify(payload);
         var encodedData = encodeURIComponent(btoa(unescape(encodeURIComponent(jsonString))));
         var cardUrl = "https://bobbyenglishschool.github.io/2026BobbyEnglish-view.html?data=" + encodedData;
         document.getElementById('card_view_url').value = cardUrl;
+        payload.cardUrl = cardUrl;
     } catch(err) {
-        console.error("Card URL generation error:", err);
+        console.error("Card URL error:", err);
     }
 
-    submitBtn.innerText = "正在傳送合約，請稍候...";
+    submitBtn.innerText = "正在傳送合約資料，請稍候...";
     submitBtn.disabled = true;
 
-    // 雙保險背景寫入 GAS
-    var googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbxJAk6m4v8yF5lUEgMQaLiO82e9RQVWcybpcejHsIyCx7UxuxEPyUaQ5LWbj7OegsAyhw/exec";
+    // 3. 異步傳送到您剛建立的全新 GAS 試算表 (分流至 Advance A1 契約書 分頁)
+    // 💡 提示：請將下面的 YOUR_NEW_GAS_SCRIPT_ID 替換成您全新的 GAS 網址 ID！
+    var newGoogleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbwhMte1RvW2O3BWc2uMYc4hj_DPVX5Gp7Kh2zeBYEstHYVjtSjSegaePQnr6nH7DLXmWQ/exec";
     
     try {
-        fetch(googleAppsScriptUrl, {
+        fetch(newGoogleAppsScriptUrl, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
@@ -717,7 +704,7 @@ function prepareSubmit(event) {
         console.warn("GAS fetch error:", err);
     }
 
-    // 表單自然提交給 Formspree
+    // 表單將自然提交給 FormSubmit 發送 Email
 }
 
 window.onload = function() {

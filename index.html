@@ -90,7 +90,6 @@
             margin-bottom: 15px;
         }
 
-        /* 🔒 三大表格邊框防護：採用 collapse 演算法與實體深藍色 (#1b3d6d !important) */
         table {
             width: 100%;
             border-collapse: collapse !important;
@@ -136,7 +135,6 @@
             background-color: #fff;
         }
 
-        /* 🎯 Aegis 核心 UI 規範 5：選讀班別拆解兩行、去「班」字、100% 幾何精準居中 */
         .static-course-cell {
             font-weight: bold;
             color: var(--uci-blue);
@@ -374,9 +372,13 @@
 <body>
 
 <div class="page-container">
-    <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="prepareSubmit(event)">
-        <input type="hidden" name="_captcha" value="false">
+    <!-- 🎯 Formspree 傳送設定 -->
+    <form id="contractForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" onsubmit="prepareSubmit(event)">
         <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
+        <input type="hidden" id="replyTo" name="_replyto" value="joy@bobbyenglishschool.com">
+
+        <!-- 🔗 Formspree 專屬：信件內會直接呈現這個卡片連結 -->
+        <input type="hidden" id="card_view_url" name="📜 點此查看專屬 A4 契約卡片" value="">
         
         <input type="hidden" id="signature_parent_base64" name="[家長親筆手寫電子簽章區]">
         <input type="hidden" id="signature_staff_base64" name="[補習班行政核定電子簽章區]">
@@ -407,7 +409,6 @@
                     <tbody>
                         <tr>
                             <th><span class="zh-title">選讀核定班別</span><span class="en-title">Enrolled Course</span></th>
-                            <!-- 🎯 Aegis 核心 UI 規範 5：班別拆分為兩行，上下左右 100% 幾何精準置中，並刪除贅字「班」 -->
                             <td>
                                 <div class="static-course-cell">
                                     <span style="font-size: 14px; font-weight: 800;">Advance A1</span>
@@ -420,7 +421,6 @@
                                     <option value="1">標準常規原價方案 / Standard Plan ($31,740)</option>
                                     <option value="0.9">9折優惠方案 / 10% Off Promotion ($28,566)</option>
                                     <option value="0.85">85折優惠方案 / 15% Off Promotion ($26,979)</option>
-                                    <!-- 🎯 Aegis 核心 UI 規範 6：刪除「老朋友」字樣，統一為「✨ 8 折優惠」 -->
                                     <option value="0.8">✨ 8折優惠方案 / 20% Off Promotion ($25,392)</option>
                                 </select>
                             </td>
@@ -429,14 +429,12 @@
                             <th><span class="zh-title">(1) 學費</span><span class="en-title">Tuition Fee</span></th>
                             <td id="td_tuition" style="font-weight: 700; color: var(--uci-blue);">NT$ 26,180 元</td>
                             <th><span class="zh-title">(2) 講義教材費</span><span class="en-title">Materials Fee</span></th>
-                            <!-- 🎯 精準升級：教材費用更新為 $3,520 元 ($2,770 + $750) -->
                             <td id="td_materials" style="font-weight: 700; color: var(--uci-blue);">NT$ 3,520 元</td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">(3) 當期學雜費</span><span class="en-title">School Fees</span></th>
                             <td id="td_misc" style="font-weight: 700; color: var(--uci-blue);">NT$ 2,040 元</td>
                             <th><span class="zh-title">核定繳費總金額(1)+(2)+(3)</span><span class="en-title">Grand Total (1)+(2)+(3)</span></th>
-                            <!-- 🎯 精準升級：未折總金額更新為 $31,740 元 -->
                             <td id="td_total" style="font-weight: 700; color: var(--soft-red); font-size: 14px;">NT$ 31,740 元</td>
                         </tr>
                     </tbody>
@@ -566,7 +564,6 @@ var isDrawingStaff = false;
 var hasSignedParent = false;
 var hasSignedStaff = false;
 
-// 🎯 高解析度 (Retina) Canvas 校準與畫素維護
 function setupCanvas(canvas, ctx) {
     var rect = canvas.parentElement.getBoundingClientRect();
     var ratio = window.devicePixelRatio || 1;
@@ -596,7 +593,6 @@ function getPos(canvas, e) {
     };
 }
 
-// 簽名事件監聽綁定
 parentCanvas.addEventListener('mousedown', function(e) { isDrawingParent = true; hasSignedParent = true; var p = getPos(parentCanvas, e); parentCtx.beginPath(); parentCtx.moveTo(p.x, p.y); });
 parentCanvas.addEventListener('mousemove', function(e) { if(isDrawingParent) { var p = getPos(parentCanvas, e); parentCtx.lineTo(p.x, p.y); parentCtx.stroke(); } });
 window.addEventListener('mouseup', function() { isDrawingParent = false; });
@@ -623,44 +619,33 @@ function clearSig(target) {
     }
 }
 
-// =========================================================================
-// 🎯 核心修正：遵守最高協定全項目連動算式，且 Hidden 欄位完美咬合：
-// 【應繳總金額 = Math.round((基本學費 + 原價教材費 + 當期學雜費) * 折扣率)】
-// =========================================================================
 function calculateContractBilling() {
     var discountRatio = parseFloat(document.getElementById('discountSelector').value);
     
-    // Advance A1 標準三項基礎定額 (34堂課)
     var pricePerLesson = 770;
     var lessons = 34;
     var rawTuition = pricePerLesson * lessons; // $26,180
     var rawMaterials = 3520;                    // $3,520 ($2,770 + $750)
     var rawMisc = 60 * lessons;                 // $2,040
     
-    // 🎯 折扣連動計算：全項目皆乘上折扣率並四捨五入，確保加總 100% 咬合！
     var calculatedTuition = Math.round(rawTuition * discountRatio);
     var calculatedMaterials = Math.round(rawMaterials * discountRatio);
     var calculatedMisc = Math.round(rawMisc * discountRatio);
     
-    // 應繳實際總計金額
     var grandTotal = Math.round((rawTuition + rawMaterials + rawMisc) * discountRatio);
 
-    // 顯示於表格中
     document.getElementById('td_tuition').innerText = "NT$ " + calculatedTuition.toLocaleString() + " 元";
     document.getElementById('td_materials').innerText = "NT$ " + calculatedMaterials.toLocaleString() + " 元";
     document.getElementById('td_misc').innerText = "NT$ " + calculatedMisc.toLocaleString() + " 元";
     document.getElementById('td_total').innerText = "NT$ " + grandTotal.toLocaleString() + " 元";
     
-    // 🎯 法律條款第五條動態連動更新為實際核定折後金額！
     document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
 
-    // 🎯 Aegis 核心修復：正確將折後金額同步至隱藏欄位傳遞給 GAS 後端！
     document.getElementById('hidden_tuition').value = calculatedTuition + " 元";
     document.getElementById('hidden_materials').value = calculatedMaterials + " 元";
     document.getElementById('hidden_misc').value = calculatedMisc + " 元";
     document.getElementById('hidden_total').value = grandTotal + " 元";
 
-    // 🎯 核心 UI 規範 6：去身分標籤，動態修改郵件主旨標籤
     var discountText = "標準常規原價";
     if (discountRatio === 0.9) discountText = "享 9 折特惠";
     if (discountRatio === 0.85) discountText = "享 85 折特惠";
@@ -670,9 +655,11 @@ function calculateContractBilling() {
 }
 
 function prepareSubmit(event) {
-    event.preventDefault();
-    
+    var form = document.getElementById('contractForm');
+    var submitBtn = document.getElementById('submitBtn');
+
     if (!hasSignedParent) {
+        event.preventDefault();
         alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色方框內完成「家長親筆電子簽章」，才能送出契約書喔！");
         return false;
     }
@@ -684,32 +671,58 @@ function prepareSubmit(event) {
     } else {
         document.getElementById('signature_staff_base64').value = "[本次由家長單向自主簽署，尚未執行行政櫃檯實體複簽覆蓋]";
     }
-    
-    var submitBtn = document.getElementById('submitBtn');
-    submitBtn.innerText = "正傳送至 Joy 負責人法律簽核夾...";
+
+    var now = new Date();
+    var timeString = now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
+
+    // 打包資料並自動編碼生成專屬 view.html 卡片網址
+    var payload = {
+        type: "contract",
+        course: "Advance A1",
+        time: timeString,
+        studentName: "已簽署學員",
+        englishName: "Advance A1",
+        schoolGrade: "以報名表登記為準",
+        parentName: "已簽署監護人",
+        phone: "以報名表登記為準",
+        email: "joy@bobbyenglishschool.com",
+        className: "Advance A1 學生短期補習服務契約書",
+        feeDetails: document.getElementById('hidden_total').value,
+        notes: "契約線上簽署確認"
+    };
+
+    try {
+        var jsonString = JSON.stringify(payload);
+        var encodedData = encodeURIComponent(btoa(unescape(encodeURIComponent(jsonString))));
+        var cardUrl = "https://bobbyenglishschool.github.io/2026BobbyEnglish-view.html?data=" + encodedData;
+        document.getElementById('card_view_url').value = cardUrl;
+    } catch(err) {
+        console.error("Card URL generation error:", err);
+    }
+
+    submitBtn.innerText = "正在傳送合約，請稍候...";
     submitBtn.disabled = true;
 
-    // 🎯 修復：已修正原本網址開頭多打的 h 字母（https://...）
-    var googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbwgH0UA-2abR3kDTfTzcruXpu9oNV9m-t2LeOMG7h-bDaB-RzcKxcYn-HhS8erTE41zAQ/exec";
-    var form = document.getElementById('contractForm');
+    // 雙保險背景寫入 GAS
+    var googleAppsScriptUrl = "https://script.google.com/macros/s/YOUR_GAS_SCRIPT_ID/exec";
+    
+    try {
+        fetch(googleAppsScriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+    } catch(err) {
+        console.warn("GAS fetch error:", err);
+    }
 
-    fetch(googleAppsScriptUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: new URLSearchParams(new FormData(form))
-    })
-    .then(function() {
-        form.submit();
-    })
-    .catch(function() {
-        form.submit();
-    });
+    // 表單自然提交給 Formspree
 }
 
 window.onload = function() {
     initCanvases();
     
-    // 🎯 Aegis 核心 UI 規範 5：審閱期攜回日期即為家長開頁當天日期！
     var today = new Date();
     var minguoYear = today.getFullYear() - 1911;
     var currentMonth = today.getMonth() + 1;
@@ -730,7 +743,6 @@ window.onload = function() {
     calculateContractBilling();
 };
 
-// 🎯 視窗尺寸改變時自動維護 Canvas 高解析解析度
 window.onresize = function() {
     setupCanvas(parentCanvas, parentCtx);
     setupCanvas(staffCanvas, staffCtx);

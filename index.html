@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -20,47 +20,212 @@
             --text-sub: #475569;
         }
         
-        * { box-shadow: none; box-sizing: border-box; font-family: 'Inter', 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif; }
-        body { background-color: #f1f5f9; margin: 0; padding: 20px 0; color: var(--text-main); line-height: 1.55; }
-        .page-container { max-width: 850px; margin: 0 auto; background: #fff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; width: 100%; }
+        * { 
+            box-shadow: none; 
+            box-sizing: border-box; 
+            font-family: 'Inter', 'Noto Sans TC', 'Helvetica Neue', Arial, 'Microsoft JhengHei', sans-serif; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        body { 
+            background-color: #f1f5f9; 
+            margin: 0; 
+            padding: 20px 0; 
+            color: var(--text-main); 
+            line-height: 1.6; 
+        }
+        
+        .page-container { 
+            max-width: 850px; 
+            margin: 0 auto; 
+            background: #fff; 
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            width: 100%; 
+        }
+        
         .page { padding: 40px 50px; }
-        .contract-header { text-align: center; border-bottom: 3px double var(--uci-blue); padding-bottom: 15px; margin-bottom: 25px; }
-        .contract-header h1 { color: var(--uci-blue); font-size: 21px; margin: 0 0 5px 0; font-weight: 800; }
-        .contract-header h2 { color: var(--uci-blue); font-size: 15px; margin: 0; font-weight: 700; }
-        .section-title { background-color: var(--uci-blue); color: #fff; padding: 8px 14px; font-size: 15px; font-weight: 800; margin: 25px 0 10px 0; border-radius: 6px 6px 0 0; display: inline-block; }
+        
+        .contract-header { 
+            text-align: center; 
+            border-bottom: 3px double var(--uci-blue); 
+            padding-bottom: 15px; 
+            margin-bottom: 25px; 
+        }
+        
+        .contract-header h1 { 
+            color: var(--uci-blue); 
+            font-size: 21px; 
+            margin: 0 0 5px 0; 
+            font-weight: 900; 
+            letter-spacing: 0.3px;
+        }
+        
+        .contract-header h2 { 
+            color: var(--uci-blue); 
+            font-size: 15px; 
+            margin: 0; 
+            font-weight: 700; 
+            letter-spacing: 0.5px;
+        }
+        
+        .section-title { 
+            background-color: var(--uci-blue); 
+            color: #fff; 
+            padding: 8px 14px; 
+            font-size: 15px; 
+            font-weight: 800; 
+            letter-spacing: 0.5px;
+            margin: 25px 0 10px 0; 
+            border-radius: 6px 6px 0 0; 
+            display: inline-block; 
+        }
+        
         .table-responsive-wrapper { width: 100%; overflow-x: auto; margin-bottom: 15px; }
 
-        table { width: 100%; border-collapse: collapse !important; font-size: 13px; table-layout: fixed; border: 1px solid #1b3d6d !important; background-color: #ffffff; }
-        th, td { border: 1px solid #1b3d6d !important; padding: 10px; vertical-align: middle; word-break: break-word; }
-        th { background-color: #f0f4f8; color: var(--uci-blue); text-align: center; width: 25%; font-weight: 700; }
-        th span.zh-title { font-size: 13px; display: block; font-weight: 700; }
-        th span.en-title { font-size: 10px; display: block; font-weight: 400; opacity: 0.85; }
-        td { position: relative; text-align: left; width: 25%; background-color: #fff; }
+        table { 
+            width: 100%; 
+            border-collapse: collapse !important; 
+            font-size: 13px; 
+            table-layout: fixed; 
+            border: 1px solid #1b3d6d !important; 
+            background-color: #ffffff; 
+        }
+        
+        th, td { 
+            border: 1px solid #1b3d6d !important; 
+            padding: 10px; 
+            vertical-align: middle; 
+            word-break: break-word; 
+        }
+        
+        th { 
+            background-color: #f0f4f8; 
+            color: var(--uci-blue); 
+            text-align: center; 
+            width: 25%; 
+            font-weight: 800; 
+        }
+        
+        th span.zh-title { font-size: 13.5px; display: block; font-weight: 800; letter-spacing: 0.3px; }
+        th span.en-title { font-size: 10.5px; display: block; font-weight: 500; opacity: 0.82; letter-spacing: 0.2px; }
+        
+        td { position: relative; text-align: left; width: 25%; background-color: #fff; font-weight: 600; }
 
-        .static-course-cell { font-weight: bold; color: var(--uci-blue); font-size: 13.5px; text-align: center !important; display: flex; flex-direction: column; align-items: center !important; justify-content: center !important; height: 100%; padding: 4px 0; }
-        .select-input { font-size: 12px; font-weight: bold; color: var(--uci-blue); cursor: pointer; background-color: #e6f0fa; border: 1px solid #1b3d6d; border-radius: 4px; width: 100%; padding: 6px 4px; outline: none; }
-        .privacy-statement { background-color: #f0f4f8; padding: 14px 18px; border-left: 4px solid var(--uci-blue); border: 1px solid #1b3d6d !important; font-size: 13px; margin-bottom: 20px; border-radius: 6px; line-height: 1.65; }
+        .static-course-cell { 
+            font-weight: 800; 
+            color: var(--uci-blue); 
+            font-size: 13.5px; 
+            text-align: center !important; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center !important; 
+            justify-content: center !important; 
+            height: 100%; 
+            padding: 4px 0; 
+        }
+        
+        .select-input { 
+            font-size: 12.5px; 
+            font-weight: 800; 
+            color: var(--uci-blue); 
+            cursor: pointer; 
+            background-color: #e6f0fa; 
+            border: 1px solid #1b3d6d; 
+            border-radius: 4px; 
+            width: 100%; 
+            padding: 6px 4px; 
+            outline: none; 
+        }
+        
+        .privacy-statement { 
+            background-color: #f0f4f8; 
+            padding: 14px 18px; 
+            border-left: 4.5px solid var(--uci-blue); 
+            border: 1px solid #1b3d6d !important; 
+            font-size: 13.5px; 
+            margin-bottom: 20px; 
+            border-radius: 6px; 
+            line-height: 1.65; 
+            font-weight: 500;
+        }
+        .privacy-statement strong { font-weight: 800; color: var(--uci-blue); }
 
-        .legal-box { border: 1px solid #1b3d6d !important; background-color: #fafbfc; padding: 20px; height: 420px; overflow-y: scroll; font-size: 13px; line-height: 1.7; text-align: left; margin-bottom: 20px; border-radius: 8px; }
-        .legal-item { margin-bottom: 20px; border-bottom: 1px dashed #1b3d6d; padding-bottom: 15px; }
+        .legal-box { 
+            border: 1px solid #1b3d6d !important; 
+            background-color: #fafbfc; 
+            padding: 20px; 
+            height: 420px; 
+            overflow-y: scroll; 
+            font-size: 13px; 
+            line-height: 1.7; 
+            text-align: left; 
+            margin-bottom: 20px; 
+            border-radius: 8px; 
+        }
+        
+        .legal-item { 
+            margin-bottom: 20px; 
+            border-bottom: 1px dashed #1b3d6d; 
+            padding-bottom: 15px; 
+            font-weight: 500;
+        }
         .legal-item:last-child { border-bottom: none; }
-        .legal-item strong { color: var(--uci-blue); font-size: 14px; font-weight: 800; }
-        .legal-en { color: var(--text-sub); display: block; margin-top: 4px; font-size: 11.5px; line-height: 1.5; }
+        .legal-item strong { color: var(--uci-blue); font-size: 14px; font-weight: 800; letter-spacing: 0.3px; }
+        
+        .legal-en { 
+            color: var(--text-sub); 
+            display: block; 
+            margin-top: 5px; 
+            font-size: 11.5px; 
+            font-weight: 500;
+            line-height: 1.55; 
+            letter-spacing: 0.2px;
+        }
 
         .dual-signature-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; margin-top: 15px; margin-bottom: 20px; }
         .signature-block { width: 48%; display: flex; flex-direction: column; }
-        .signature-label { font-size: 13px; color: var(--uci-blue); font-weight: 700; margin-bottom: 8px; }
+        .signature-label { font-size: 13.5px; color: var(--uci-blue); font-weight: 800; margin-bottom: 8px; letter-spacing: 0.3px; }
         .signature-canvas-container { width: 100%; height: 140px; background-color: #fff; border: 1.5px dashed var(--uci-blue) !important; position: relative; border-radius: 6px; overflow: hidden; }
         canvas { width: 100%; height: 100%; cursor: crosshair; display: block; touch-action: none; }
-        .canvas-clear-btn { position: absolute; bottom: 6px; right: 6px; background-color: var(--soft-red); color: #fff; border: none; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 700; z-index: 10; }
+        .canvas-clear-btn { position: absolute; bottom: 6px; right: 6px; background-color: var(--soft-red); color: #fff; border: none; padding: 5px 10px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 800; z-index: 10; letter-spacing: 0.3px; }
 
-        .agreement-banner { text-align: center; font-size: 14px; font-weight: 800; color: var(--soft-red); margin: 25px 0; padding: 12px 16px; background-color: rgba(231, 76, 60, 0.06); border: 1px solid var(--soft-red); border-radius: 6px; line-height: 1.6; }
+        .agreement-banner { 
+            text-align: center; 
+            font-size: 14px; 
+            font-weight: 800; 
+            color: var(--soft-red); 
+            margin: 25px 0; 
+            padding: 12px 16px; 
+            background-color: rgba(231, 76, 60, 0.06); 
+            border: 1px solid var(--soft-red); 
+            border-radius: 6px; 
+            line-height: 1.6; 
+            letter-spacing: 0.3px;
+        }
+        
         .submit-btn-container, .print-btn-container { text-align: center; margin-top: 25px; padding-bottom: 15px; }
-        .submit-btn { background-color: var(--uci-gold); color: var(--uci-blue); border: none; padding: 15px 40px; font-size: 17px; font-weight: 800; border-radius: 30px; cursor: pointer; width: 100%; max-width: 520px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .print-btn { background-color: var(--uci-blue); color: #fff; border: none; padding: 12px 35px; font-size: 14px; font-weight: 700; border-radius: 20px; cursor: pointer; }
+        .submit-btn { 
+            background-color: var(--uci-gold); 
+            color: var(--uci-blue); 
+            border: none; 
+            padding: 15px 40px; 
+            font-size: 17.5px; 
+            font-weight: 900; 
+            letter-spacing: 0.8px;
+            border-radius: 30px; 
+            cursor: pointer; 
+            width: 100%; 
+            max-width: 520px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12); 
+            transition: all 0.2s ease;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.18); }
+        .print-btn { background-color: var(--uci-blue); color: #fff; border: none; padding: 12px 35px; font-size: 14px; font-weight: 800; border-radius: 20px; cursor: pointer; letter-spacing: 0.5px; }
 
-        .top-print-bar { display: none; background: var(--uci-blue); color: #fff; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        .top-print-bar button { background: var(--uci-gold); color: var(--uci-blue); border: none; padding: 8px 20px; font-weight: 800; border-radius: 20px; cursor: pointer; font-size: 14px; }
+        .top-print-bar { display: none; background: var(--uci-blue); color: #fff; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.15); font-weight: 700; }
+        .top-print-bar button { background: var(--uci-gold); color: var(--uci-blue); border: none; padding: 8px 20px; font-weight: 800; border-radius: 20px; cursor: pointer; font-size: 14px; margin-left: 10px; }
 
         @media print {
             @page { size: A4 portrait; margin: 10mm 15mm; }
@@ -106,14 +271,14 @@
                 <h1>私立巴比美語短期補習班 ｜ 短期補習服務報名表暨服務契約書</h1>
                 <h2>Advance A1 兒童進階美語</h2>
                 <h2 style="font-size: 13.5px; font-weight: 700; margin-top: 5px; opacity: 0.95;">Bobby English School - Enrollment Form & Service Contract</h2>
-                <p style="font-size: 11px; color: var(--text-sub); margin: 10px 0 0 0;">(依據教育部短期補習班補習服務契約書範本與桃園市最新設立及管理法規制定-2026年9月最新核定版)</p>
+                <p style="font-size: 11px; color: var(--text-sub); margin: 10px 0 0 0; font-weight: 500;">(依據教育部短期補習班補習服務契約書範本與桃園市最新設立及管理法規制定-2026年9月最新核定版)</p>
             </div>
 
             <!-- 🎯 契約審閱確認條款 -->
             <div class="privacy-statement">
                 <strong>【重要權益：契約審閱權】 / Contract Review Right</strong><br>
                 本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: bold; color: var(--uci-blue);">115</span> 年 <span id="reviewMonthDisplay" style="font-weight: bold; color: var(--uci-blue);">8</span> 月 <span id="reviewDayDisplay" style="font-weight: bold; color: var(--uci-blue);">22</span> 日由學員 <input type="text" id="contract_student_name" name="contract_student_name" placeholder="請填學生中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required> 及監護人 <input type="text" id="contract_parent_name" name="contract_parent_name" placeholder="請填家長中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required> 攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
-                <span style="color: var(--text-sub); font-style: italic;">This standard contract was taken home for review by student <span id="reviewStudentEn" style="font-weight:bold;">[Student]</span> and guardian <span id="reviewParentEn" style="font-weight:bold;">[Parent]</span> on Minguo <span id="reviewYearDisplayEn">115</span>/<span id="reviewMonthDisplayEn">8</span>/<span id="reviewDayDisplayEn">22</span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
+                <span style="color: var(--text-sub); font-size: 11.5px; font-style: italic; font-weight: 400;">This standard contract was taken home for review by student <span id="reviewStudentEn" style="font-weight:bold;">[Student]</span> and guardian <span id="reviewParentEn" style="font-weight:bold;">[Parent]</span> on Minguo <span id="reviewYearDisplayEn">115</span>/<span id="reviewMonthDisplayEn">8</span>/<span id="reviewDayDisplayEn">22</span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
             </div>
 
             <div class="section-title">一、選讀班級、科目與學費核定明細 / Course & Billing Details</div>
@@ -124,8 +289,8 @@
                             <th><span class="zh-title">選讀核定班別</span><span class="en-title">Enrolled Course</span></th>
                             <td>
                                 <div class="static-course-cell">
-                                    <span style="font-size: 14px; font-weight: 800;">Advance A1</span>
-                                    <span style="font-size: 12px; font-weight: 600; margin-top: 2px;">世界探索與語言活用</span>
+                                    <span style="font-size: 14px; font-weight: 800; letter-spacing: 0.5px;">Advance A1</span>
+                                    <span style="font-size: 12px; font-weight: 700; margin-top: 2px;">世界探索與語言活用</span>
                                 </div>
                             </td>
                             <th><span class="zh-title">核定收費方案選擇</span><span class="en-title">Tuition Plan Option</span></th>
@@ -148,15 +313,15 @@
                         </tr>
                         <tr>
                             <th><span class="zh-title">(1) 學費</span><span class="en-title">Tuition Fee</span></th>
-                            <td id="td_tuition" style="font-weight: 700; color: var(--uci-blue);">NT$ 20,944 元</td>
+                            <td id="td_tuition" style="font-weight: 800; color: var(--uci-blue);">NT$ 20,944 元</td>
                             <th><span class="zh-title">(2) 講義教材費</span><span class="en-title">Materials Fee</span></th>
-                            <td id="td_materials" style="font-weight: 700; color: var(--uci-blue);">NT$ 2,816 元</td>
+                            <td id="td_materials" style="font-weight: 800; color: var(--uci-blue);">NT$ 2,816 元</td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">(3) 當期學雜費</span><span class="en-title">School Fees</span></th>
-                            <td id="td_misc" style="font-weight: 700; color: var(--uci-blue);">NT$ 1,632 元</td>
+                            <td id="td_misc" style="font-weight: 800; color: var(--uci-blue);">NT$ 1,632 元</td>
                             <th><span class="zh-title">核定繳費總金額(1)+(2)+(3)</span><span class="en-title">Grand Total (1)+(2)+(3)</span></th>
-                            <td id="td_total" style="font-weight: 700; color: var(--soft-red); font-size: 14px;">NT$ 25,392 元</td>
+                            <td id="td_total" style="font-weight: 900; color: var(--soft-red); font-size: 14.5px;">NT$ 25,392 元</td>
                         </tr>
                     </tbody>
                 </table>
@@ -199,7 +364,6 @@
                     <span class="legal-en">1. The tuition and fees consist of Base Tuition, Textbooks/Materials, and Fees, and the total payment shall be based on the actual Grand Total dynamically computed under Section 1 after discount deductions.<br>2. Party B shall not collect any fee items that are not explicitly specified herein under any pretext. Official receipts must be issued for all fees collected.</span>
                 </div>
 
-                <!-- 🎯 補齊第 6 條至第 11 條完整中英文雙語法規條款 -->
                 <div class="legal-item">
                     <strong>第六條：桃園市法定退費標準 / Article 6: Refund Policy and Regulations (Taoyuan City Standard)：</strong><br>
                     依據「桃園市短期補習班退費管理自治條例」規範，學員因故離班退費標準條例嚴格執行如下（補習班應於家長要求退費之日起七日內辦理完畢）：<br>

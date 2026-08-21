@@ -135,6 +135,7 @@
             background-color: #fff;
         }
 
+        /* 🎯 契合協定：上下左右 100% 幾何精準置中 */
         .static-course-cell {
             font-weight: bold;
             color: var(--uci-blue);
@@ -142,8 +143,8 @@
             text-align: center !important;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: center !important;
+            justify-content: center !important;
             height: 100%;
             padding: 4px 0;
         }
@@ -377,12 +378,10 @@
 </div>
 
 <div class="page-container">
-    <!-- 🎯 FormSubmit 原生通道 (已綁定 onsubmit 防呆與非同步 GAS 簽章備份) -->
     <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="return prepareSubmit(event)">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
 
-        <!-- 🎯 精簡短網址：可生成標準可點擊藍色超連結 -->
         <input type="hidden" id="print_link_url" name="🖨️ 點此開啟完整A4契約書並列印" value="">
         
         <input type="hidden" id="signature_parent_base64" name="[家長親筆手寫電子簽章區]">
@@ -415,32 +414,42 @@
                         <tr>
                             <th><span class="zh-title">選讀核定班別</span><span class="en-title">Enrolled Course</span></th>
                             <td>
+                                <!-- 🎯 契合協定：拆為兩行，刪除「班」贅字，100% 幾何精準置中 -->
                                 <div class="static-course-cell">
                                     <span style="font-size: 14px; font-weight: 800;">Advance A1</span>
-                                    <span style="font-size: 12px; font-weight: 600; margin-top: 2px;">兒童進階美語</span>
+                                    <span style="font-size: 12px; font-weight: 600; margin-top: 2px;">世界探索與語言活用</span>
                                 </div>
                             </td>
                             <th><span class="zh-title">核定收費方案選擇</span><span class="en-title">Tuition Plan Option</span></th>
                             <td>
+                                <!-- 🎯 契合協定：加入去身分標籤全連動選單，與 Form.html 絕對咬合 -->
                                 <select id="discountSelector" name="discountSelector" class="select-input" onchange="calculateContractBilling()">
-                                    <option value="1">標準常規原價方案 / Standard Plan ($31,740)</option>
-                                    <option value="0.9">9折優惠方案 / 10% Off Promotion ($28,566)</option>
-                                    <option value="0.85">85折優惠方案 / 15% Off Promotion ($26,979)</option>
-                                    <option value="0.8">✨ 8折優惠方案 / 20% Off Promotion ($25,392)</option>
+                                    <optgroup label="✨ 新生方案（含教材費 $3,520）">
+                                        <option value="new_1.0">新生原價 ($31,740)</option>
+                                        <option value="new_0.9">新生 9 折 ($28,566)</option>
+                                        <option value="new_0.85">新生 85 折 ($26,979)</option>
+                                        <option value="new_0.8" selected>✨ 新生 8 折優惠 ($25,392)</option>
+                                    </optgroup>
+                                    <optgroup label="✨ 舊生方案（免教材費 $0）">
+                                        <option value="old_1.0">舊生原價 ($28,220)</option>
+                                        <option value="old_0.9">舊生 9 折 ($25,398)</option>
+                                        <option value="old_0.85">舊生 85 折 ($23,987)</option>
+                                        <option value="old_0.8">✨ 舊生 8 折優惠 ($22,576)</option>
+                                    </optgroup>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">(1) 學費</span><span class="en-title">Tuition Fee</span></th>
-                            <td id="td_tuition" style="font-weight: 700; color: var(--uci-blue);">NT$ 26,180 元</td>
+                            <td id="td_tuition" style="font-weight: 700; color: var(--uci-blue);">NT$ 20,944 元</td>
                             <th><span class="zh-title">(2) 講義教材費</span><span class="en-title">Materials Fee</span></th>
-                            <td id="td_materials" style="font-weight: 700; color: var(--uci-blue);">NT$ 3,520 元</td>
+                            <td id="td_materials" style="font-weight: 700; color: var(--uci-blue);">NT$ 2,816 元</td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">(3) 當期學雜費</span><span class="en-title">School Fees</span></th>
-                            <td id="td_misc" style="font-weight: 700; color: var(--uci-blue);">NT$ 2,040 元</td>
+                            <td id="td_misc" style="font-weight: 700; color: var(--uci-blue);">NT$ 1,632 元</td>
                             <th><span class="zh-title">核定繳費總金額(1)+(2)+(3)</span><span class="en-title">Grand Total (1)+(2)+(3)</span></th>
-                            <td id="td_total" style="font-weight: 700; color: var(--soft-red); font-size: 14px;">NT$ 31,740 元</td>
+                            <td id="td_total" style="font-weight: 700; color: var(--soft-red); font-size: 14px;">NT$ 25,392 元</td>
                         </tr>
                     </tbody>
                 </table>
@@ -478,7 +487,8 @@
                 </div>
                 <div class="legal-item">
                     <strong>第五條：收費項目、金額與禁止不當收費 / Article 5: Fee Items, Grand Total, and Receipt Requirements：</strong><br>
-                    1. 本期核定收費費用包含基本學費、教材講義費及當期學雜費，當期實際應繳總金額以本合約第一項動態計算扣除優惠減免後之實際金額為準（目前核定原價總額為新台幣 <span id="legal_total_zh" style="font-weight:bold; color:var(--soft-red);">31,740</span> 元）。<br>
+                    <!-- 🎯 契合協定：內文 legal_total_zh 與 legal_total_words 隨選擇動態即時連動 -->
+                    1. 本期核定收費費用包含基本學費、教材講義費及當期學雜費，當期實際應繳總金額以本合約第一項動態計算扣除優惠減免後之實際金額為準（目前核定總額為新台幣 <span id="legal_total_zh" style="font-weight:bold; color:var(--soft-red);">25,392</span> 元整，大寫：新臺幣 <span id="legal_total_words" style="font-weight:bold; color:var(--uci-blue);">貳萬伍仟參佰玖拾貳</span> 元整）。<br>
                     2. 未明列於契約內之項目，乙方不得收取。所有收取費用乙方應依法開立正式核定收據憑證交予甲方。<br>
                     <span class="legal-en">1. The tuition and fees consist of Base Tuition, Textbooks/Materials, and Fees, and the total payment shall be based on the actual Grand Total dynamically computed under Section 1 after discount deductions.<br>2. Party B shall not collect any fee items that are not explicitly specified herein under any pretext. Official receipts must be issued for all fees collected.</span>
                 </div>
@@ -568,8 +578,6 @@ var staffCtx = staffCanvas.getContext('2d');
 
 var isDrawingParent = false;
 var isDrawingStaff = false;
-var hasSignedParent = false;
-var hasSignedStaff = false;
 
 function setupCanvas(canvas, ctx) {
     var rect = canvas.parentElement.getBoundingClientRect();
@@ -600,44 +608,73 @@ function getPos(canvas, e) {
     };
 }
 
-parentCanvas.addEventListener('mousedown', function(e) { isDrawingParent = true; hasSignedParent = true; var p = getPos(parentCanvas, e); parentCtx.beginPath(); parentCtx.moveTo(p.x, p.y); });
+parentCanvas.addEventListener('mousedown', function(e) { isDrawingParent = true; var p = getPos(parentCanvas, e); parentCtx.beginPath(); parentCtx.moveTo(p.x, p.y); });
 parentCanvas.addEventListener('mousemove', function(e) { if(isDrawingParent) { var p = getPos(parentCanvas, e); parentCtx.lineTo(p.x, p.y); parentCtx.stroke(); } });
 window.addEventListener('mouseup', function() { isDrawingParent = false; });
 
-parentCanvas.addEventListener('touchstart', function(e) { isDrawingParent = true; hasSignedParent = true; var p = getPos(parentCanvas, e); parentCtx.beginPath(); parentCtx.moveTo(p.x, p.y); }, {passive: true});
+parentCanvas.addEventListener('touchstart', function(e) { isDrawingParent = true; var p = getPos(parentCanvas, e); parentCtx.beginPath(); parentCtx.moveTo(p.x, p.y); }, {passive: true});
 parentCanvas.addEventListener('touchmove', function(e) { if(isDrawingParent) { var p = getPos(parentCanvas, e); parentCtx.lineTo(p.x, p.y); parentCtx.stroke(); } }, {passive: true});
 parentCanvas.addEventListener('touchend', function() { isDrawingParent = false; });
 
-staffCanvas.addEventListener('mousedown', function(e) { isDrawingStaff = true; hasSignedStaff = true; var p = getPos(staffCanvas, e); staffCtx.beginPath(); staffCtx.moveTo(p.x, p.y); });
+staffCanvas.addEventListener('mousedown', function(e) { isDrawingStaff = true; var p = getPos(staffCanvas, e); staffCtx.beginPath(); staffCtx.moveTo(p.x, p.y); });
 staffCanvas.addEventListener('mousemove', function(e) { if(isDrawingStaff) { var p = getPos(staffCanvas, e); staffCtx.lineTo(p.x, p.y); staffCtx.stroke(); } });
 window.addEventListener('mouseup', function() { isDrawingStaff = false; });
 
-staffCanvas.addEventListener('touchstart', function(e) { isDrawingStaff = true; hasSignedStaff = true; var p = getPos(staffCanvas, e); staffCtx.beginPath(); staffCtx.moveTo(p.x, p.y); }, {passive: true});
+staffCanvas.addEventListener('touchstart', function(e) { isDrawingStaff = true; var p = getPos(staffCanvas, e); staffCtx.beginPath(); staffCtx.moveTo(p.x, p.y); }, {passive: true});
 staffCanvas.addEventListener('touchmove', function(e) { if(isDrawingStaff) { var p = getPos(staffCanvas, e); staffCtx.lineTo(p.x, p.y); staffCtx.stroke(); } }, {passive: true});
 staffCanvas.addEventListener('touchend', function() { isDrawingStaff = false; });
 
 function clearSig(target) {
     if(target === 'parent') { 
         parentCtx.clearRect(0, 0, parentCanvas.width, parentCanvas.height); 
-        hasSignedParent = false; 
         document.getElementById('parentSigImg').style.display = 'none';
         parentCanvas.style.display = 'block';
     } else { 
         staffCtx.clearRect(0, 0, staffCanvas.width, staffCanvas.height); 
-        hasSignedStaff = false; 
         document.getElementById('staffSigImg').style.display = 'none';
         staffCanvas.style.display = 'block';
     }
 }
 
+// 🎯 契合協定：Uint32Array 像素級判空，確保親筆簽章真實有效
+function isCanvasBlank(canvas) {
+    var ctx = canvas.getContext('2d');
+    var pixelBuffer = new Uint32Array(ctx.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
+    var count = 0;
+    for (var i = 0; i < pixelBuffer.length; i++) {
+        if (pixelBuffer[i] !== 0) {
+            count++;
+            if (count > 50) return false; // 非透明像素超過 50 個代表已有有效簽章
+        }
+    }
+    return true;
+}
+
+// 🎯 數字轉大寫中文
+function numberToChinese(num) {
+    var digits = ['零', '壹', '貳', '參', '肆', '伍', '陸', '柒', '捌', '玖'];
+    var units = ['', '拾', '佰', '仟', '萬', '拾萬'];
+    var str = num.toString();
+    var result = '';
+    for (var i = 0; i < str.length; i++) {
+        var digit = parseInt(str[i]);
+        var unit = units[str.length - 1 - i];
+        result += digits[digit] + unit;
+    }
+    return result.replace(/零[拾佰仟]/g, '零').replace(/零+/g, '零').replace(/零$/, '');
+}
+
 function calculateContractBilling() {
-    var discountRatio = parseFloat(document.getElementById('discountSelector').value);
-    
+    var selectedValue = document.getElementById('discountSelector').value;
+    var parts = selectedValue.split('_');
+    var identity = parts[0]; // new or old
+    var discountRatio = parseFloat(parts[1]);
+
     var pricePerLesson = 770;
     var lessons = 34;
-    var rawTuition = pricePerLesson * lessons;
-    var rawMaterials = 3520;
-    var rawMisc = 60 * lessons;
+    var rawTuition = pricePerLesson * lessons; // $26,180
+    var rawMaterials = (identity === 'new') ? 3520 : 0;
+    var rawMisc = 60 * lessons; // $2,040
     
     var calculatedTuition = Math.round(rawTuition * discountRatio);
     var calculatedMaterials = Math.round(rawMaterials * discountRatio);
@@ -651,34 +688,30 @@ function calculateContractBilling() {
     document.getElementById('td_total').innerText = "NT$ " + grandTotal.toLocaleString() + " 元";
     
     document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
+    document.getElementById('legal_total_words').innerText = numberToChinese(grandTotal);
 
     document.getElementById('hidden_tuition').value = calculatedTuition + " 元";
     document.getElementById('hidden_materials').value = calculatedMaterials + " 元";
     document.getElementById('hidden_misc').value = calculatedMisc + " 元";
     document.getElementById('hidden_total').value = grandTotal + " 元";
 
-    var discountText = "標準常規原價";
-    if (discountRatio === 0.9) discountText = "享 9 折特惠";
-    if (discountRatio === 0.85) discountText = "享 85 折特惠";
-    if (discountRatio === 0.8) discountText = "享 8 折特惠";
-
-    document.getElementById('formSubject').value = "【法律合約完成-" + discountText + "】Advance A1 兒童進階美語";
+    var idText = (identity === 'new') ? "新生" : "舊生";
+    document.getElementById('formSubject').value = "【法律合約完成-" + idText + "折扣】Advance A1 兒童進階美語";
 }
 
 function prepareSubmit(event) {
-    if (!hasSignedParent && parentCanvas.style.display !== 'none') {
+    // 🎯 契合協定：Uint32Array 像素級防呆判空
+    if (isCanvasBlank(parentCanvas) && parentCanvas.style.display !== 'none') {
         if(event) event.preventDefault();
-        alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色方框內完成「家長親筆電子簽章」，才能送出契約書喔！");
+        alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色畫布內完成「親筆電子簽章」，才能送出契約書喔！");
         return false;
     }
     
-    // 🎯 擷取 Canvas 畫布之親筆電子簽章 Base64 數據
     var pSigData = parentCanvas.style.display !== 'none' ? parentCanvas.toDataURL("image/png") : "";
 
     document.getElementById('signature_parent_base64').value = "[已於線上完成親筆電子簽章]";
-    document.getElementById('signature_staff_base64').value = hasSignedStaff ? "[行政人員已完成電子核章]" : "[待行政核章]";
+    document.getElementById('signature_staff_base64').value = !isCanvasBlank(staffCanvas) ? "[行政人員已完成電子核章]" : "[待行政核章]";
 
-    // 打包極簡乾淨可點擊超連結
     try {
         var disc = document.getElementById('discountSelector').value;
         var baseUrl = window.location.href.split('?')[0];
@@ -703,13 +736,12 @@ function prepareSubmit(event) {
         email: "joy@bobbyenglishschool.com",
         className: "Advance A1 學生短期補習服務契約書",
         feeDetails: document.getElementById('hidden_total').value,
-        notes: "契約線上簽署確認",
+        notes: "契約線上簽署確認 (" + document.getElementById('discountSelector').selectedOptions[0].text + ")",
         parentSignature: "已完成電子簽章",
-        parentSignatureBase64: pSigData, // 🎯 傳送手寫簽章的 Base64 圖片數據給 GAS 存檔至 Google Drive！
+        parentSignatureBase64: pSigData,
         cardUrl: document.getElementById('print_link_url').value
     };
 
-    // 🎯 已更換為 Joy 總司令全新部署之 GAS Web App URL
     var newGoogleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbwOdzl9x0Kq2fYRpjyKkDbvkGobLgANCrC15tUhPB1nEYQ01Ij89BJ8V1rwmb2WBY1wOg/exec";
     
     try {
@@ -723,7 +755,7 @@ function prepareSubmit(event) {
         console.warn("GAS fetch error:", err);
     }
 
-    return true; // 🎯 確保 FormSubmit 能順利接手原生提交
+    return true;
 }
 
 window.onload = function() {

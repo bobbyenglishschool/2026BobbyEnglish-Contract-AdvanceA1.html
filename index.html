@@ -4,95 +4,343 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>私立巴比美語短期補習班 | 短期補習服務契約書 (Advance A1)</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
-
     <style>
         :root {
             --uci-blue: #1b3d6d;
             --uci-gold: #fecc07;
             --soft-red: #e74c3c;
-            --card-bg: #f8fafc;
-            --border-color: #1b3d6d;
-            --text-main: #1e293b;
-            --text-sub: #475569;
         }
         
-        * { box-shadow: none; box-sizing: border-box; font-family: 'Inter', 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif; }
-        body { background-color: #f1f5f9; margin: 0; padding: 20px 0; color: var(--text-main); line-height: 1.55; }
-        .page-container { max-width: 850px; margin: 0 auto; background: #fff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; width: 100%; }
-        .page { padding: 40px 50px; }
-        .contract-header { text-align: center; border-bottom: 3px double var(--uci-blue); padding-bottom: 15px; margin-bottom: 25px; }
-        .contract-header h1 { color: var(--uci-blue); font-size: 21px; margin: 0 0 5px 0; font-weight: 800; }
-        .contract-header h2 { color: var(--uci-blue); font-size: 15px; margin: 0; font-weight: 700; }
-        .section-title { background-color: var(--uci-blue); color: #fff; padding: 8px 14px; font-size: 15px; font-weight: 800; margin: 25px 0 10px 0; border-radius: 6px 6px 0 0; display: inline-block; }
-        .table-responsive-wrapper { width: 100%; overflow-x: auto; margin-bottom: 15px; }
+        * {
+            box-shadow: none;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-        table { width: 100%; border-collapse: collapse !important; font-size: 13px; table-layout: fixed; border: 1px solid #1b3d6d !important; background-color: #ffffff; }
-        th, td { border: 1px solid #1b3d6d !important; padding: 10px; vertical-align: middle; word-break: break-word; }
-        th { background-color: #f0f4f8; color: var(--uci-blue); text-align: center; width: 25%; font-weight: 700; }
-        th span.zh-title { font-size: 13px; display: block; font-weight: 700; }
-        th span.en-title { font-size: 10px; display: block; font-weight: 400; opacity: 0.85; }
-        td { position: relative; text-align: left; width: 25%; background-color: #fff; }
+        body {
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.5;
+        }
 
-        .static-course-cell { font-weight: bold; color: var(--uci-blue); font-size: 13.5px; text-align: center !important; display: flex; flex-direction: column; align-items: center !important; justify-content: center !important; height: 100%; padding: 4px 0; }
-        .select-input { font-size: 12px; font-weight: bold; color: var(--uci-blue); cursor: pointer; background-color: #e6f0fa; border: 1px solid #1b3d6d; border-radius: 4px; width: 100%; padding: 6px 4px; outline: none; }
-        .privacy-statement { background-color: #f0f4f8; padding: 14px 18px; border-left: 4px solid var(--uci-blue); border: 1px solid #1b3d6d !important; font-size: 13px; margin-bottom: 20px; border-radius: 6px; line-height: 1.65; }
+        .page-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-        .legal-box { border: 1px solid #1b3d6d !important; background-color: #fafbfc; padding: 20px; height: 420px; overflow-y: scroll; font-size: 13px; line-height: 1.7; text-align: left; margin-bottom: 20px; border-radius: 8px; }
-        .legal-item { margin-bottom: 20px; border-bottom: 1px dashed #1b3d6d; padding-bottom: 15px; }
-        .legal-item:last-child { border-bottom: none; }
-        .legal-item strong { color: var(--uci-blue); font-size: 14px; font-weight: 800; }
-        .legal-en { color: var(--text-sub); display: block; margin-top: 4px; font-size: 11.5px; line-height: 1.5; }
+        .page {
+            padding: 40px 50px;
+        }
 
-        .dual-signature-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; margin-top: 15px; margin-bottom: 20px; }
-        .signature-block { width: 48%; display: flex; flex-direction: column; }
-        .signature-label { font-size: 13px; color: var(--uci-blue); font-weight: 700; margin-bottom: 8px; }
-        .signature-canvas-container { width: 100%; height: 140px; background-color: #fff; border: 1.5px dashed var(--uci-blue) !important; position: relative; border-radius: 6px; overflow: hidden; }
-        canvas { width: 100%; height: 100%; cursor: crosshair; display: block; touch-action: none; }
-        .canvas-clear-btn { position: absolute; bottom: 6px; right: 6px; background-color: var(--soft-red); color: #fff; border: none; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 700; z-index: 10; }
+        .contract-header {
+            text-align: center;
+            border-bottom: 3px double var(--uci-blue);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
 
-        .agreement-banner { text-align: center; font-size: 14px; font-weight: 800; color: var(--soft-red); margin: 25px 0; padding: 12px 16px; background-color: rgba(231, 76, 60, 0.06); border: 1px solid var(--soft-red); border-radius: 6px; line-height: 1.6; }
-        .submit-btn-container, .print-btn-container { text-align: center; margin-top: 25px; padding-bottom: 15px; }
-        .submit-btn { background-color: var(--uci-gold); color: var(--uci-blue); border: none; padding: 15px 40px; font-size: 17px; font-weight: 800; border-radius: 30px; cursor: pointer; width: 100%; max-width: 520px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .print-btn { background-color: var(--uci-blue); color: #fff; border: none; padding: 12px 35px; font-size: 14px; font-weight: 700; border-radius: 20px; cursor: pointer; }
+        .contract-header h1 {
+            color: var(--uci-blue);
+            font-size: 21px;
+            margin: 0 0 5px 0;
+            font-weight: 900;
+            letter-spacing: -0.2px;
+        }
 
-        .top-print-bar { display: none; background: var(--uci-blue); color: #fff; padding: 12px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        .top-print-bar button { background: var(--uci-gold); color: var(--uci-blue); border: none; padding: 8px 20px; font-weight: 800; border-radius: 20px; cursor: pointer; font-size: 14px; }
+        .contract-header h2 {
+            color: var(--uci-blue);
+            font-size: 15px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .section-title {
+            background-color: var(--uci-blue);
+            color: #fff;
+            padding: 8px 12px;
+            font-size: 15px;
+            font-weight: 800;
+            margin: 25px 0 10px 0;
+            border-radius: 4px 4px 0 0;
+            display: inline-block;
+            letter-spacing: 0.3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse !important;
+            margin-bottom: 15px;
+            font-size: 13px;
+            table-layout: fixed;
+            border: 1px solid var(--uci-blue) !important;
+        }
+
+        th, td {
+            border: 1px solid var(--uci-blue) !important;
+            padding: 10px;
+            vertical-align: middle;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #f0f4f8;
+            color: var(--uci-blue);
+            text-align: center; 
+            width: 25%;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        th span.zh-title {
+            font-size: 13.5px;
+            display: block;
+            font-weight: 700;
+        }
+        th span.en-title {
+            font-size: 10.5px;
+            display: block;
+            font-weight: 500;
+            opacity: 0.85;
+            font-family: 'Inter', sans-serif;
+        }
+
+        td {
+            position: relative;
+            text-align: left;
+            width: 25%;
+            background-color: #fff;
+            font-weight: 500;
+        }
+
+        .select-input {
+            font-size: 12px; 
+            font-weight: 700;
+            color: #0077b6;
+            cursor: pointer;
+            background-color: rgba(0, 119, 182, 0.05);
+            border-radius: 4px;
+            width: 100%;
+            padding: 6px 4px;
+            text-overflow: clip;
+            white-space: normal;
+            border: 1px solid #0077b6;
+            outline: none;
+        }
+
+        .text-input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            font-family: inherit;
+            color: inherit;
+            font-size: 13px;
+            padding: 4px;
+        }
+
+        .text-input:focus, .select-input:focus {
+            background-color: rgba(254, 204, 7, 0.15);
+        }
+
+        .legal-box {
+            border: 1px solid var(--uci-blue);
+            background-color: #fafbfc;
+            padding: 20px;
+            height: 420px; 
+            overflow-y: scroll;
+            font-size: 13px;
+            line-height: 1.7;
+            text-align: left;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .legal-item {
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 15px;
+        }
+
+        .legal-item:last-child {
+            border-bottom: none;
+        }
+
+        .legal-item strong {
+            color: var(--uci-blue);
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .legal-en {
+            color: #555;
+            font-style: normal;
+            display: block;
+            margin-top: 4px;
+            line-height: 1.5;
+            font-size: 11.5px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        .dual-signature-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 4%;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .signature-block {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .signature-label {
+            font-size: 13px;
+            color: var(--uci-blue);
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .signature-canvas-container {
+            width: 100%;
+            height: 130px;
+            background-color: #fff;
+            border: 1.5px dashed var(--uci-blue) !important;
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+            display: block;
+            touch-action: none;
+        }
+
+        .canvas-clear-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            font-size: 11px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .agreement-banner {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 800;
+            color: #c00;
+            margin: 25px 0;
+            padding: 12px;
+            background-color: rgba(204, 0, 0, 0.05);
+            border: 1px solid #c00;
+            border-radius: 6px;
+            line-height: 1.6;
+        }
+
+        .submit-btn-container, .print-btn-container {
+            text-align: center;
+            margin-top: 25px;
+            padding-bottom: 15px;
+        }
+
+        .submit-btn {
+            background-color: var(--uci-gold);
+            color: var(--uci-blue);
+            border: none;
+            padding: 15px 35px;
+            font-size: 17px;
+            font-weight: 900;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .print-btn {
+            background-color: #2c3e50;
+            color: #fff;
+            border: 2px solid #34495e;
+            padding: 10px 35px;
+            font-size: 13.5px;
+            font-weight: 800;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+
+        .print-btn:hover {
+            background-color: #1a252f;
+            transform: scale(1.02);
+        }
 
         @media print {
-            @page { size: A4 portrait; margin: 10mm 15mm; }
-            body { background-color: #fff; padding: 0; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .page-container { max-width: 100%; width: 100%; box-shadow: none; border-radius: 0; }
-            .page { padding: 0 !important; }
-            .legal-box { height: auto !important; overflow-y: visible !important; border: none !important; background-color: #fff; padding: 0; }
-            .canvas-clear-btn, .submit-btn-container, .print-btn-container, .top-print-bar { display: none !important; }
-            table, th, td { border: 1px solid #1b3d6d !important; }
+            body { background-color: #fff; padding: 0; margin: 0; }
+            .page-container { max-width: 100%; width: 100%; box-shadow: none; }
+            .page { padding: 10mm 15mm !important; width: 210mm; }
+            .legal-box { height: auto !important; overflow-y: visible !important; border: none; background-color: #fff; padding: 0; }
+            .legal-item { page-break-inside: avoid; }
+            .canvas-clear-btn, .submit-btn-container, .print-btn-container { display: none !important; }
+            .signature-canvas-container { border: 1px solid var(--uci-blue) !important; }
+            table, th, td { border: 1px solid var(--uci-blue) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            th { width: 25% !important; background-color: #f0f4f8 !important; }
+            td { width: 25% !important; }
         }
 
         @media (max-width: 768px) {
             body { padding: 8px; }
-            .page { padding: 20px 15px; }
+            .page { padding: 25px 15px; }
+            .page-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            table { width: 800px; } 
+            th, td { width: auto !important; }
+            .select-input { font-size: 10.5px; padding: 4px 1px; }
+            .submit-btn { font-size: 14px; padding: 12px 15px; }
             .dual-signature-row { flex-direction: column; gap: 15px; }
             .signature-block { width: 100%; }
-            table { min-width: 650px; } 
         }
     </style>
 </head>
 <body>
 
-<div id="topPrintBar" class="top-print-bar">
-    📄 正在預覽簽署完成之定型化契約書 ── <button onclick="window.print()">🖨️ 點此直接列印 / 存成 PDF 紙本</button>
-</div>
-
 <div class="page-container">
-    <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="return prepareSubmit(event)">
+    <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="prepareSubmit(event)">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
-
-        <input type="hidden" id="print_link_url" name="🖨️ 點此開啟完整A4契約書並列印" value="">
+        <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語班">
+        
         <input type="hidden" id="signature_parent_base64" name="[家長親筆手寫電子簽章區]">
         <input type="hidden" id="signature_staff_base64" name="[補習班行政核定電子簽章區]">
 
@@ -104,63 +352,47 @@
         <div class="page">
             <div class="contract-header">
                 <h1>私立巴比美語短期補習班 ｜ 短期補習服務報名表暨服務契約書</h1>
-                <h2>Advance A1 兒童進階美語</h2>
-                <h2 style="font-size: 13.5px; font-weight: 700; margin-top: 5px; opacity: 0.95;">Bobby English School - Enrollment Form & Service Contract</h2>
-                <p style="font-size: 11px; color: var(--text-sub); margin: 10px 0 0 0;">(依據教育部短期補習班補習服務契約書範本與桃園市最新設立及管理法規制定-2026年9月最新核定版)</p>
+                <h2>Advance A1 兒童進階美語班</h2>
+                <h2 style="font-size: 13.5px; font-weight: 700; margin-top: 5px; opacity: 0.95; font-family: 'Inter', sans-serif;">Bobby English School - Enrollment Form & Service Contract</h2>
+                <p style="font-size: 11.5px; color: #666; margin: 10px 0 0 0; font-weight: 500;">(依據教育部短期補習班補習服務契約書範本與桃園市最新設立及管理法規制定-2026年9月最新核定版)</p>
             </div>
 
-            <!-- 🎯 契約審閱確認條款 -->
-            <div class="privacy-statement">
+            <div class="privacy-statement" style="background-color: #e6f0fa; padding: 12px 16px; border-left: 4px solid var(--uci-blue); font-size: 13px; margin-bottom: 20px; border-radius: 4px; border: 1px solid var(--uci-blue) !important;">
                 <strong>【重要權益：契約審閱權】 / Contract Review Right</strong><br>
-                本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: bold; color: var(--uci-blue);">115</span> 年 <span id="reviewMonthDisplay" style="font-weight: bold; color: var(--uci-blue);">8</span> 月 <span id="reviewDayDisplay" style="font-weight: bold; color: var(--uci-blue);">22</span> 日由學員 <input type="text" id="contract_student_name" name="contract_student_name" placeholder="請填學生中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required> 及監護人 <input type="text" id="contract_parent_name" name="contract_parent_name" placeholder="請填家長中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required> 攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
-                <span style="color: var(--text-sub); font-style: italic;">This standard contract was taken home for review by student <span id="reviewStudentEn" style="font-weight:bold;">[Student]</span> and guardian <span id="reviewParentEn" style="font-weight:bold;">[Parent]</span> on Minguo <span id="reviewYearDisplayEn">115</span>/<span id="reviewMonthDisplayEn">8</span>/<span id="reviewDayDisplayEn">22</span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
+                本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: 800; color: #0077b6;"></span> 年 <span id="reviewMonthDisplay" style="font-weight: 800; color: #0077b6;"></span> 月 <span id="reviewDayDisplay" style="font-weight: 800; color: #0077b6;"></span> 日由學員及監護人攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
+                <span style="color: #555; font-size: 11.5px; font-family: 'Inter', sans-serif; display: block; margin-top: 3px;">This standard contract was taken home by the student/parent for review on Minguo <span id="reviewYearDisplayEn"></span>/<span id="reviewMonthDisplayEn"></span>/<span id="reviewDayDisplayEn"></span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
             </div>
 
             <div class="section-title">一、選讀班級、科目與學費核定明細 / Course & Billing Details</div>
-            <div class="table-responsive-wrapper">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th><span class="zh-title">選讀核定班別</span><span class="en-title">Enrolled Course</span></th>
-                            <td>
-                                <div class="static-course-cell">
-                                    <span style="font-size: 14px; font-weight: 800;">Advance A1</span>
-                                    <span style="font-size: 12px; font-weight: 600; margin-top: 2px;">世界探索與語言活用</span>
-                                </div>
-                            </td>
-                            <th><span class="zh-title">核定收費方案選擇</span><span class="en-title">Tuition Plan Option</span></th>
-                            <td>
-                                <select id="discountSelector" name="discountSelector" class="select-input" onchange="calculateContractBilling()">
-                                    <optgroup label="✨ 新生方案（含教材費 $3,520）">
-                                        <option value="new_1.0">新生原價 ($31,740)</option>
-                                        <option value="new_0.9">新生 9 折 ($28,566)</option>
-                                        <option value="new_0.85">新生 85 折 ($26,979)</option>
-                                        <option value="new_0.8" selected>✨ 新生 8 折優惠 ($25,392)</option>
-                                    </optgroup>
-                                    <optgroup label="✨ 舊生方案（免教材費 $0）">
-                                        <option value="old_1.0">舊生原價 ($28,220)</option>
-                                        <option value="old_0.9">舊生 9 折 ($25,398)</option>
-                                        <option value="old_0.85">舊生 85 折 ($23,987)</option>
-                                        <option value="old_0.8">✨ 舊生 8 折優惠 ($22,576)</option>
-                                    </optgroup>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><span class="zh-title">(1) 學費</span><span class="en-title">Tuition Fee</span></th>
-                            <td id="td_tuition" style="font-weight: 700; color: var(--uci-blue);">NT$ 20,944 元</td>
-                            <th><span class="zh-title">(2) 講義教材費</span><span class="en-title">Materials Fee</span></th>
-                            <td id="td_materials" style="font-weight: 700; color: var(--uci-blue);">NT$ 2,816 元</td>
-                        </tr>
-                        <tr>
-                            <th><span class="zh-title">(3) 當期學雜費</span><span class="en-title">School Fees</span></th>
-                            <td id="td_misc" style="font-weight: 700; color: var(--uci-blue);">NT$ 1,632 元</td>
-                            <th><span class="zh-title">核定繳費總金額(1)+(2)+(3)</span><span class="en-title">Grand Total (1)+(2)+(3)</span></th>
-                            <td id="td_total" style="font-weight: 700; color: var(--soft-red); font-size: 14px;">NT$ 25,392 元</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th><span class="zh-title">選讀核定班別</span><span class="en-title">Enrolled Course</span></th>
+                        <td style="font-weight: 800; color: var(--uci-blue); font-size: 13.5px;">Advance A1 兒童進階美語班</td>
+                        <th><span class="zh-title">核定收費方案選擇</span><span class="en-title">Tuition Plan Option</span></th>
+                        <td>
+                            <select id="discountSelector" class="select-input" onchange="calculateContractBilling()">
+                                <option value="1">常態收費原價 (Full Price)</option>
+                                <option value="0.9">9 折優惠 (10% OFF)</option>
+                                <option value="0.85">85 折優惠 (15% OFF)</option>
+                                <option value="0.8">✨ 8 折優惠 (20% OFF)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><span class="zh-title">(1) 學費</span><span class="en-title">Tuition Fee</span></th>
+                        <td id="td_tuition" style="font-weight: 700; color: var(--uci-blue); font-family: 'Inter', sans-serif;">NT$ 26,180 元</td>
+                        <th><span class="zh-title">(2) 講義教材費</span><span class="en-title">Materials Fee</span></th>
+                        <td id="td_materials" style="font-weight: 700; color: var(--uci-blue); font-family: 'Inter', sans-serif;">NT$ 3,520 元</td>
+                    </tr>
+                    <tr>
+                        <th><span class="zh-title">(3) 當期學雜費</span><span class="en-title">School Fees</span></th>
+                        <td id="td_misc" style="font-weight: 700; color: var(--uci-blue); font-family: 'Inter', sans-serif;">NT$ 2,040 元</td>
+                        <th><span class="zh-title">核定繳費總金額(1)+(2)+(3)</span><span class="en-title">Grand Total (1)+(2)+(3)</span></th>
+                        <td id="td_total" style="font-weight: 900; color: #c00; font-size: 15px; font-family: 'Inter', sans-serif;">NT$ 31,740 元</td>
+                    </tr>
+                </tbody>
+            </table>
 
             <div class="section-title">二、短期補習服務定型化契約應記載條款 / Cram School Services Model Contract Provisions</div>
             <div class="legal-box" id="legalBoxContainer">
@@ -171,7 +403,7 @@
                 </div>
                 <div class="legal-item">
                     <strong>第一條：修業班別與班級性質 / Article 1: Course and Program Enrollment Type：</strong><br>
-                    1. 本契約核定就讀班級為：Advance A1 兒童進階美語。<br>
+                    1. 本契約核定就讀班級為：Advance A1 兒童進階美語班。<br>
                     2. 本課程屬一般系統化正規美語教學進度班，非屬保證班（補習班未提供任何特定考取、分數擔保、退費退分等特定保證成效承諾）。<br>
                     <span class="legal-en">1. The approved program under this contract is: Advance A1 Junior Advanced Class.<br>2. This course is a regular systematic progression program and is NOT a "guaranteed success" or "warranty" program (No promises of passing specific exams or special (effectiveness or outcome) guarantee warranties shall apply).</span>
                 </div>
@@ -179,7 +411,7 @@
                     <strong>第二條：修業期間與插班計費規範 / Article 2: Study Period and Pro-Rata Later Enrollment Policy：</strong><br>
                     1. 本期核定修業期間自民國115年09月02日正式開課起，至該班當期排定課程總堂數（34堂課）結束止。<br>
                     2. 課程開始後報名插班者，應以實際報名後之最近一次實際上課日作為開課日（未填列時以甲方實際第一次上課日為準），並以該課程當期剩餘期間及未上課時數，依比例計費收取費用。<br>
-                    <span class="legal-en">1. The term of study commences on the official start date of September 2, 2026, until the scheduled conclusion of the entire semester program lessons (34 lessons).<br>2. For students enrolling after the course has commenced, the immediate next actual class date after formal registration shall be deemed the official start date, and fees shall be calculated pro-rata based on the remaining lessons and period.</span>
+                    <span class="legal-en">1. The term of study commences on the official start date of September 2, 2026, until the scheduled conclusion of the entire semester program lessons.<br>2. For students enrolling after the course has commenced, the immediate next actual class date after formal registration shall be deemed the official start date, and fees shall be calculated pro-rata based on the remaining lessons and period.</span>
                 </div>
                 <div class="legal-item">
                     <strong>第三條：課程科目、內容與授課時數 / Article 3: Course Subjects, Content, and Timetable Hours：</strong><br>
@@ -194,12 +426,10 @@
                 </div>
                 <div class="legal-item">
                     <strong>第五條：收費項目、金額與禁止不當收費 / Article 5: Fee Items, Grand Total, and Receipt Requirements：</strong><br>
-                    1. 本期核定收費費用包含基本學費、教材講義費及當期學雜費，當期實際應繳總金額以本合約第一項動態計算扣除優惠減免後之實際金額為準（目前核定總額為新台幣 <span id="legal_total_zh" style="font-weight:bold; color:var(--soft-red);">25,392</span> 元整，大寫：新臺幣 <span id="legal_total_words" style="font-weight:bold; color:var(--uci-blue);">貳萬伍仟參佰玖拾貳</span> 元整）。<br>
+                    1. 本期核定收費費用包含基本學費、教材講義費及當期學雜費，當期實際應繳總金額以本合約第一項動態計算扣除優惠減免後之實際金額為準（目前核定原價總額為新台幣 <span id="legal_total_zh" style="font-weight:900; color:#c00;">31,740</span> 元）。<br>
                     2. 未明列於契約內之項目，乙方不得收取。所有收取費用乙方應依法開立正式核定收據憑證交予甲方。<br>
                     <span class="legal-en">1. The tuition and fees consist of Base Tuition, Textbooks/Materials, and Fees, and the total payment shall be based on the actual Grand Total dynamically computed under Section 1 after discount deductions.<br>2. Party B shall not collect any fee items that are not explicitly specified herein under any pretext. Official receipts must be issued for all fees collected.</span>
                 </div>
-
-                <!-- 🎯 補齊第 6 條至第 11 條完整中英文雙語法規條款 -->
                 <div class="legal-item">
                     <strong>第六條：桃園市法定退費標準 / Article 6: Refund Policy and Regulations (Taoyuan City Standard)：</strong><br>
                     依據「桃園市短期補習班退費管理自治條例」規範，學員因故離班退費標準條例嚴格執行如下（補習班應於家長要求退費之日起七日內辦理完畢）：<br>
@@ -209,48 +439,43 @@
                     (4) 實際開課日起第六日，至全期或總課程時數之三分之一期間內要求退費者：退還依約繳納費用總額之百分之五十（50%）。<br>
                     (5) 已逾全期或總課程時數之三分之一者：所收取之當期費用得全數不予退還。<br>
                     (6) 代辦之教材費若已購置並已發放予甲方者，該項目不予退還，教材歸甲方所有。<br>
-                    <span class="legal-en">In accordance with the Taoyuan City Short-Term Cram School Refund Management Regulations, refunds shall be processed within 7 days based on the following:<br>(1) Requested 30 days or more before the actual start date: Full 100% refund of total fees paid.<br>(2) Requested within 1 to 29 days before start date: 90% refund of total fees paid (capped at NT$1,000 deduction).<br>(3) Requested within 5 days from start date: 80% refund of total fees paid.<br>(4) Requested from the 6th day until 1/3 of total course duration: 50% refund of total fees paid.<br>(5) Requested after 1/3 of total course duration: Fees collected are entirely non-refundable.<br>(6) Issued textbooks/materials are non-refundable and belong to the student.</span>
+                    <span class="legal-en">In accordance with the Taoyuan City Cram School Refund Regulations, refunds shall be processed within 7 days based on the following:<br>(1) Requested 30 days or more before start date: Full 100% refund of total fees paid.<br>(2) Requested within 1 to 29 days before start date: 90% refund of total fees paid (the amount retained by school is capped at NT$1,000, excess must be refunded).<br>(3) Requested within 5 days from the start date: 80% refund of total fees paid.<br>(4) Requested from the 6th day until 1/3 of total course term: 50% refund of total fees paid.<br>(5) Requested after 1/3 of total course term: Fees collected may be entirely non-refundable.<br>(6) Issued materials or textbooks are non-refundable and belong to the student.</span>
                 </div>
-
                 <div class="legal-item">
                     <strong>第七條：學員請假規範與導師編制補課機制 / Article 7: Absence, Leave Notification, and Make-up Tutoring：</strong><br>
                     1. 學生若因病、因事假無法出席，監護人應於上課前兩小時透過官方 LINE 帳號或專線完成請假登記。<br>
                     2. 凡完成合規請假者，本班將指派該班導師安排合適時間，提供一對一或小組專業輔導、補課或提供課堂精華錄影。<br>
                     3. 未依規定請假無故缺課者，視同自動放棄該堂課程權益，本班不另行補課，亦不予扣除學費或退費。<br>
-                    <span class="legal-en">1. If a student cannot attend due to sickness or personal matters, parents must request leave via official LINE or phone at least 2 hours prior to class.<br>2. For approved leaves, the school will arrange 1-on-1 or small-group instructor-led make-up classes, supplementary tutoring, or lesson recordings.<br>3. Unexcused absences without proper notification constitute a waiver of lesson rights; no make-up sessions or tuition deductions shall apply.</span>
+                    <span class="legal-en">1. If a student cannot attend due to sickness or personal matters, parents must request leave via official LINE or phone at least 2 hours prior to class.<br>2. For approved leaves, the school will arrange 1-on-1 or small-group instructor-led make-up classes or supplementary tutoring.<br>3. Unexcused absences without proper notification constitute a waiver of lesson rights; no make-up sessions or tuition deductions shall apply.</span>
                 </div>
-
                 <div class="legal-item">
                     <strong>第八條：可歸責乙方之調課補課與退費保障 / Article 8: Alterations Attributable to Party B and Penalty Refund：</strong><br>
                     1. 因可歸責於乙方之原因（如教師請假等）調動上課時間，致甲方無法配合而缺課者，乙方應無條件予以補課、提供課堂影音，或按比例計算返還該節課程費用。<br>
                     2. 乙方無正當事由變更原訂課程、科目、時數、上課地點或更換教學人員超過三分之一人數者，甲方得宣告終止契約，乙方應依甲方已繳金額費用加計30%作為違約金損害賠償退還甲方。<br>
-                    <span class="legal-en">1. If a class schedule is adjusted due to reasons attributable to Party B, resulting in Party A's inability to attend, Party B shall provide alternative make-up sessions or refund the specific lesson fee proportionally.<br>2. If Party B alters the course, subjects, hours, location, or replaces instructors by more than 1/3 without justification, Party A may terminate the contract, and Party B must refund all fees paid plus an extra 30% penalty compensation.</span>
+                    <span class="legal-en">1. If a class schedule is adjusted due to reasons attributable to Party B (such as instructor leave), resulting in Party A's inability to attend, Party B shall provide alternative make-up sessions or refund the specific lesson fee proportionally.<br>2. If Party B alters the original course, subject, hours, or replaces instructors by more than 1/3 without cause, Party A may terminate the contract, and Party B must refund all fees paid plus an extra 30% penalty.</span>
                 </div>
-
                 <div class="legal-item">
-                    <strong>第九條：肖像權合理使用授權與個資隱私安全保護 / Article 9: Portrait Rights Authorization and Personal Data Privacy Protection：</strong><br>
+                    <strong>第九條：肖像權合理使用授權與個資隱私安全保護 / Article 9: Portrait Rights and Personal Data Privacy Protection：</strong><br>
                     1. 甲方同意並授權乙方得於常態教學、成果發表或特殊節慶活動中進行拍照與錄影，並得將學員影像合理、不損及名譽地使用於補習班內部學習成果展示、官方網站或招生行銷文宣。<br>
                     2. 乙方應嚴格遵守《個人資料保護法》規範，甲方所填報之所有個資僅得用於補習班內部教學行政與安全緊急聯絡，未經書面允許，絕不得洩漏給任何第三人。<br>
-                    <span class="legal-en">1. Party A authorizes Party B to take photos and videos during regular classes or holiday events, and reasonably use the images for internal achievement displays or official website promotional marketing without damaging student reputation.<br>2. Party B must strictly handle all personal data in full compliance with the Personal Data Protection Act solely for academic administration, safety, and urgent communication.</span>
+                    <span class="legal-en">1. Party A authorizes Party B to take photos and videos during regular classes or holiday events, and reasonably use the images for internal achievement displays or official website promotional marketing, provided it doesn't harm the student's reputation.<br>2. Party B must strictly handle all personal data in full compliance with the Personal Data Protection Act solely for academic administration, safety, and urgent communication. Selling or disclosing data to third parties is strictly prohibited.</span>
                 </div>
-
                 <div class="legal-item">
-                    <strong>第十條：違規行為處置、秩序維護與契約終止 / Article 10: Student Conduct, Classroom Order, and Contract Termination：</strong><br>
-                    1. 學員於修業期間應共同維護課堂秩序與安全。若有嚴重干擾他人學習、惡意破壞公共設施、侵害違法行為且屢勸不聽者，為維護全班學員安全防線，乙方得單方面終止本契約，並依第六條退費條款辦理剩餘款項退費手續。<br>
-                    <span class="legal-en">1. Students must strictly maintain classroom order and safety. For severe disruptions endangering others or malicious vandalism where repeated counseling fails, Party B reserves the right to unilaterally terminate this contract and issue refunds according to Article 6.</span>
+                    <strong>第十條：違規行為處置、秩序維護與契約終止 / Article 10: Student Conduct, Classroom Order, and Termination：</strong><br>
+                    學員於修業期間應共同維護課堂秩序與安全。若有嚴重干擾他人學習、惡意破壞公共設施、侵害違法行為且屢勸不聽者，為維護全班學員安全防線，乙方得單方面終止本契約，並依第六條退費條款辦理剩餘款項退費手續。<br>
+                    <span class="legal-en">Students must strictly maintain classroom order and safety. For severe disruptions endangering others, malicious vandalism, or illegal acts where repeated counseling fails, Party B reserves the right to unilaterally terminate this contract to secure class safety, issuing refunds according to Article 6.</span>
                 </div>
-
                 <div class="legal-item">
                     <strong>第十一條：法律疑義解釋、保存期限與爭議管轄 / Article 11: Legal Interpretation, Preservation Term, and Jurisdiction：</strong><br>
                     1. 本契約各條款如有疑義時，應依據《消費者保護法》第十一條第二項規定，採取最有利於消費者（甲方）之方向進行法律解釋。<br>
-                    2. 本契約一式二份，由甲乙雙方各執一份為憑，自家長簽約日起生效（簽約日期：<span id="currentDateDisplay" style="font-weight:bold; color:var(--uci-blue);"></span>）。雙方合意合約保存期限不得少於五年，以備查核。<br>
+                    2. 本契約一式二份，由甲乙雙方各執一份為憑，自家長簽約日起生效。雙方合意合約保存期限不得少於五年，以備查核。<br>
                     <span class="legal-en">1. In case of doubts regarding contract clauses, interpretations shall lean in favor of the consumer (Party A) based on Article 11, Paragraph 2 of the Consumer Protection Act.<br>2. This contract is executed in duplicate, with each party holding one copy as evidence. Both parties agree that the contract preservation period shall be at least 5 years for compliance review.</span>
                 </div>
             </div>
 
             <div class="agreement-banner">
                 本人已詳細閱讀、理解並完全同意上述所有巴比美語短期補習服務條款。雙方於下方完成親筆電子簽章，即代表完全承認並代為履行本契約之所有法律權利與義務。
-                <span style="font-size: 11px; font-weight: normal; display: block; margin-top: 3px; font-style: italic;">I have read, understood, and fully agreed to all terms. Electronic signatures below imply full execution of all rights under this contract.</span>
+                <span style="font-size: 11.5px; font-weight: 500; display: block; margin-top: 3px; font-style: italic; font-family: 'Inter', sans-serif;">I have read, understood, and fully agreed to all terms. Electronic signatures below imply full execution of all rights under this contract.</span>
             </div>
 
             <div class="dual-signature-row">
@@ -274,7 +499,7 @@
                 <button type="button" class="print-btn" onclick="window.print()">🖨️ 本定型化契約 ── 一鍵匯出 A4 雙語實體 PDF / 雙向列印</button>
             </div>
 
-            <div class="submit-btn-container" id="submitBtnContainer">
+            <div class="submit-btn-container">
                 <button type="submit" id="submitBtn" class="submit-btn">我已閱讀完畢 ── 確認電子送出法律契約書</button>
             </div>
         </div>
@@ -286,7 +511,9 @@ var parentCanvas = document.getElementById('parentSigPad');
 var staffCanvas = document.getElementById('staffSigPad');
 var parentCtx = parentCanvas.getContext('2d');
 var staffCtx = staffCanvas.getContext('2d');
-var isDrawingParent = false, isDrawingStaff = false;
+
+var isDrawingParent = false;
+var isDrawingStaff = false;
 
 function setupCanvas(canvas, ctx) {
     var rect = canvas.parentElement.getBoundingClientRect();
@@ -299,7 +526,7 @@ function setupCanvas(canvas, ctx) {
     ctx.lineJoin = "round";
 }
 
-function initCanvases() {
+function resizeAllCanvases() {
     setupCanvas(parentCanvas, parentCtx);
     parentCtx.strokeStyle = "#1b3d6d";
     setupCanvas(staffCanvas, staffCtx);
@@ -316,6 +543,7 @@ function getPos(canvas, e) {
 parentCanvas.addEventListener('mousedown', function(e) { isDrawingParent = true; var p = getPos(parentCanvas, e); parentCtx.beginPath(); parentCtx.moveTo(p.x, p.y); });
 parentCanvas.addEventListener('mousemove', function(e) { if(isDrawingParent) { var p = getPos(parentCanvas, e); parentCtx.lineTo(p.x, p.y); parentCtx.stroke(); } });
 window.addEventListener('mouseup', function() { isDrawingParent = false; });
+
 parentCanvas.addEventListener('touchstart', function(e) { isDrawingParent = true; var p = getPos(parentCanvas, e); parentCtx.beginPath(); parentCtx.moveTo(p.x, p.y); }, {passive: true});
 parentCanvas.addEventListener('touchmove', function(e) { if(isDrawingParent) { var p = getPos(parentCanvas, e); parentCtx.lineTo(p.x, p.y); parentCtx.stroke(); } }, {passive: true});
 parentCanvas.addEventListener('touchend', function() { isDrawingParent = false; });
@@ -323,6 +551,7 @@ parentCanvas.addEventListener('touchend', function() { isDrawingParent = false; 
 staffCanvas.addEventListener('mousedown', function(e) { isDrawingStaff = true; var p = getPos(staffCanvas, e); staffCtx.beginPath(); staffCtx.moveTo(p.x, p.y); });
 staffCanvas.addEventListener('mousemove', function(e) { if(isDrawingStaff) { var p = getPos(staffCanvas, e); staffCtx.lineTo(p.x, p.y); staffCtx.stroke(); } });
 window.addEventListener('mouseup', function() { isDrawingStaff = false; });
+
 staffCanvas.addEventListener('touchstart', function(e) { isDrawingStaff = true; var p = getPos(staffCanvas, e); staffCtx.beginPath(); staffCtx.moveTo(p.x, p.y); }, {passive: true});
 staffCanvas.addEventListener('touchmove', function(e) { if(isDrawingStaff) { var p = getPos(staffCanvas, e); staffCtx.lineTo(p.x, p.y); staffCtx.stroke(); } }, {passive: true});
 staffCanvas.addEventListener('touchend', function() { isDrawingStaff = false; });
@@ -332,6 +561,7 @@ function clearSig(target) {
     else staffCtx.clearRect(0, 0, staffCanvas.width, staffCanvas.height);
 }
 
+/* 🎯 像素級 Uint32Array 親筆簽名判空防呆 */
 function isCanvasBlank(canvas) {
     var ctx = canvas.getContext('2d');
     var pixelBuffer = new Uint32Array(ctx.getImageData(0, 0, canvas.width, canvas.height).data.buffer);
@@ -345,116 +575,60 @@ function isCanvasBlank(canvas) {
     return true;
 }
 
-function numberToChinese(num) {
-    var digits = ['零', '壹', '貳', '參', '肆', '伍', '陸', '柒', '捌', '玖'];
-    var units = ['', '拾', '佰', '仟', '萬', '拾萬'];
-    var str = num.toString();
-    var result = '';
-    for (var i = 0; i < str.length; i++) {
-        var digit = parseInt(str[i]);
-        var unit = units[str.length - 1 - i];
-        result += digits[digit] + unit;
-    }
-    return result.replace(/零[拾佰仟]/g, '零').replace(/零+/g, '零').replace(/零$/, '');
-}
-
+/* 🎯 全項目動態折扣算式：Math.round((基本學費 + 原價教材費 + 當期學雜費) * 折扣率) */
 function calculateContractBilling() {
-    var selectedValue = document.getElementById('discountSelector').value;
-    var parts = selectedValue.split('_');
-    var identity = parts[0];
-    var discountRatio = parseFloat(parts[1]);
-
-    var pricePerLesson = 770;
-    var lessons = 34;
-    var rawTuition = pricePerLesson * lessons;
-    var rawMaterials = (identity === 'new') ? 3520 : 0;
-    var rawMisc = 60 * lessons;
+    var discountRatio = parseFloat(document.getElementById('discountSelector').value);
+    var originalTuition = 770 * 34; // Advance A1 基本學費 ($26,180)
+    var materialsFee = 3520;       // Advance A1 原價教材費 ($3,520)
+    var schoolMiscFee = 60 * 34;   // Advance A1 當期學雜費 ($2,040)
     
-    var calculatedTuition = Math.round(rawTuition * discountRatio);
-    var calculatedMaterials = Math.round(rawMaterials * discountRatio);
-    var calculatedMisc = Math.round(rawMisc * discountRatio);
-    var grandTotal = Math.round((rawTuition + rawMaterials + rawMisc) * discountRatio);
+    var calcTuition = Math.round(originalTuition * discountRatio);
+    var calcMaterials = Math.round(materialsFee * discountRatio);
+    var calcMisc = Math.round(schoolMiscFee * discountRatio);
+    var grandTotal = Math.round((originalTuition + materialsFee + schoolMiscFee) * discountRatio);
 
-    document.getElementById('td_tuition').innerText = "NT$ " + calculatedTuition.toLocaleString() + " 元";
-    document.getElementById('td_materials').innerText = "NT$ " + calculatedMaterials.toLocaleString() + " 元";
-    document.getElementById('td_misc').innerText = "NT$ " + calculatedMisc.toLocaleString() + " 元";
+    document.getElementById('td_tuition').innerText = "NT$ " + calcTuition.toLocaleString() + " 元";
+    document.getElementById('td_materials').innerText = "NT$ " + calcMaterials.toLocaleString() + " 元";
+    document.getElementById('td_misc').innerText = "NT$ " + calcMisc.toLocaleString() + " 元";
     document.getElementById('td_total').innerText = "NT$ " + grandTotal.toLocaleString() + " 元";
-    
     document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
-    document.getElementById('legal_total_words').innerText = numberToChinese(grandTotal);
 
-    document.getElementById('hidden_tuition').value = calculatedTuition + " 元";
-    document.getElementById('hidden_materials').value = calculatedMaterials + " 元";
-    document.getElementById('hidden_misc').value = calculatedMisc + " 元";
+    document.getElementById('hidden_tuition').value = calcTuition + " 元";
+    document.getElementById('hidden_materials').value = calcMaterials + " 元";
+    document.getElementById('hidden_misc').value = calcMisc + " 元";
     document.getElementById('hidden_total').value = grandTotal + " 元";
 
-    var idText = (identity === 'new') ? "新生" : "舊生";
-    document.getElementById('formSubject').value = "【法律合約完成-" + idText + "折扣】Advance A1 兒童進階美語";
+    if(discountRatio < 1) {
+        var pctText = (discountRatio * 10).toFixed(1).replace('.0', '');
+        document.getElementById('formSubject').value = "【法律合約完成-享 " + pctText + " 折特惠】Advance A1 兒童進階美語班";
+    } else {
+        document.getElementById('formSubject').value = "【法律合約完成-常態收費原價】Advance A1 兒童進階美語班";
+    }
 }
 
-document.getElementById('contract_student_name').addEventListener('input', function() {
-    document.getElementById('reviewStudentEn').innerText = this.value || '[Student]';
-});
-document.getElementById('contract_parent_name').addEventListener('input', function() {
-    document.getElementById('reviewParentEn').innerText = this.value || '[Parent]';
-});
-
 function prepareSubmit(event) {
-    if (isCanvasBlank(parentCanvas) && parentCanvas.style.display !== 'none') {
+    if (isCanvasBlank(parentCanvas)) {
         if(event) event.preventDefault();
-        alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色畫布內完成「親筆電子簽章」，才能送出契約書喔！");
+        alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色方框內完成「家長親筆電子簽章」，才能送出契約書喔！");
         return false;
     }
     
-    var pSigData = parentCanvas.toDataURL("image/png");
-    document.getElementById('signature_parent_base64').value = "[已於線上完成親筆電子簽章]";
-    document.getElementById('signature_staff_base64').value = !isCanvasBlank(staffCanvas) ? "[行政人員已完成電子核章]" : "[待行政核章]";
-
-    try {
-        var disc = document.getElementById('discountSelector').value;
-        var sName = encodeURIComponent(document.getElementById('contract_student_name').value || '');
-        var pName = encodeURIComponent(document.getElementById('contract_parent_name').value || '');
-        var baseUrl = window.location.href.split('?')[0];
-        var cleanPrintUrl = baseUrl + '?view_mode=true&auto_print=true&discountSelector=' + disc + '&contract_student_name=' + sName + '&contract_parent_name=' + pName;
-        document.getElementById('print_link_url').value = cleanPrintUrl;
-    } catch(err) { console.error("Print URL error:", err); }
-
-    var now = new Date();
-    var timeString = now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
-
-    var payload = {
-        type: "contract",
-        course: "Advance A1",
-        time: timeString,
-        studentName: document.getElementById('contract_student_name').value,
-        englishName: "Advance A1",
-        schoolGrade: "以報名表登記為準",
-        parentName: document.getElementById('contract_parent_name').value,
-        phone: "以報名表登記為準",
-        email: "joy@bobbyenglishschool.com",
-        className: "Advance A1 學生短期補習服務契約書",
-        feeDetails: document.getElementById('hidden_total').value,
-        notes: "契約線上簽署確認 (" + document.getElementById('discountSelector').selectedOptions[0].text + ")",
-        parentSignatureBase64: pSigData,
-        cardUrl: document.getElementById('print_link_url').value
-    };
-
-    var newGoogleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbwOdzl9x0Kq2fYRpjyKkDbvkGobLgANCrC15tUhPB1nEYQ01Ij89BJ8V1rwmb2WBY1wOg/exec";
+    document.getElementById('signature_parent_base64').value = parentCanvas.toDataURL("image/png");
+    if (!isCanvasBlank(staffCanvas)) {
+        document.getElementById('signature_staff_base64').value = staffCanvas.toDataURL("image/png");
+    } else {
+        document.getElementById('signature_staff_base64').value = "[本次由家長單向自主簽署，尚未執行行政櫃檯實體複簽覆蓋]";
+    }
     
-    try {
-        fetch(newGoogleAppsScriptUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-    } catch(err) { console.warn("GAS fetch error:", err); }
-
+    document.getElementById('submitBtn').innerText = "正傳送至 Joy 負責人法律簽核夾...";
+    document.getElementById('submitBtn').disabled = true;
     return true;
 }
 
 window.onload = function() {
-    initCanvases();
+    resizeAllCanvases();
+    window.addEventListener('resize', resizeAllCanvases);
+    
     var today = new Date();
     var minguoYear = today.getFullYear() - 1911;
     var currentMonth = today.getMonth() + 1;
@@ -466,42 +640,14 @@ window.onload = function() {
     document.getElementById('reviewYearDisplayEn').innerText = minguoYear;
     document.getElementById('reviewMonthDisplayEn').innerText = currentMonth;
     document.getElementById('reviewDayDisplayEn').innerText = currentDate;
-
-    if(document.getElementById('currentDateDisplay')) {
-        document.getElementById('currentDateDisplay').innerText = today.getFullYear() + " 年 " + currentMonth + " 月 " + currentDate + " 日";
-    }
-
+    
+    /* URL 參數自動選取折扣帶入機制 */
     var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('view_mode') || urlParams.has('discountSelector')) {
-        populateContractFromParams(urlParams);
-        return;
+    if(urlParams.has('discount_plan')) {
+        document.getElementById('discountSelector').value = urlParams.get('discount_plan');
     }
-
+    
     calculateContractBilling();
-};
-
-function populateContractFromParams(params) {
-    document.getElementById('topPrintBar').style.display = 'block';
-    document.getElementById('submitBtnContainer').style.display = 'none';
-
-    params.forEach(function(value, key) {
-        var field = document.getElementsByName(key)[0] || document.getElementById(key);
-        if (field) {
-            field.value = decodeURIComponent(value);
-            if (key === 'contract_student_name') document.getElementById('reviewStudentEn').innerText = decodeURIComponent(value);
-            if (key === 'contract_parent_name') document.getElementById('reviewParentEn').innerText = decodeURIComponent(value);
-        }
-    });
-
-    calculateContractBilling();
-    if (params.get('auto_print') === 'true') {
-        setTimeout(function() { window.print(); }, 800);
-    }
-}
-
-window.onresize = function() {
-    setupCanvas(parentCanvas, parentCtx);
-    setupCanvas(staffCanvas, staffCtx);
 };
 </script>
 </body>

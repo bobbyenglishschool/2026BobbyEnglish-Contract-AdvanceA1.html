@@ -295,19 +295,25 @@
                             <th><span class="zh-title">核定收費方案選擇</span><span class="en-title">Tuition Plan Option</span></th>
                             <td>
                                 <select id="discountSelector" name="discountSelector" class="select-input" onchange="calculateContractBilling()">
-                                    <optgroup label="✨ 新生方案（含教材費 $3,520）">
-                                        <option value="new_1.0">新生原價 ($31,740)</option>
-                                        <option value="new_0.9">新生 9 折 ($28,566)</option>
-                                        <option value="new_0.85">新生 85 折 ($26,979)</option>
-                                        <option value="new_0.8" selected>✨ 新生 8 折優惠 ($25,392)</option>
-                                    </optgroup>
-                                    <optgroup label="✨ 舊生方案（免教材費 $0）">
-                                        <option value="old_1.0">舊生原價 ($28,220)</option>
-                                        <option value="old_0.9">舊生 9 折 ($25,398)</option>
-                                        <option value="old_0.85">舊生 85 折 ($23,987)</option>
-                                        <option value="old_0.8">✨ 舊生 8 折優惠 ($22,576)</option>
-                                    </optgroup>
-                                </select>
+    <optgroup label="✨ 新生方案（含教材費 $3,520）">
+        <option value="new_1.0">新生原價 ($31,740)</option>
+        <option value="new_0.9">新生 9 折 ($28,566)</option>
+        <option value="new_0.85">新生 85 折 ($26,979)</option>
+        <option value="new_0.8" selected>✨ 新生 8 折優惠 ($25,392)</option>
+    </optgroup>
+    <optgroup label="✨ 舊生方案（含教材費 $3,520）">
+        <option value="oldmat_1.0">舊生原價 ($31,740)</option>
+        <option value="oldmat_0.9">舊生 9 折 ($28,566)</option>
+        <option value="oldmat_0.85">舊生 85 折 ($26,979)</option>
+        <option value="oldmat_0.8">✨ 舊生 8 折優惠 ($25,392)</option>
+    </optgroup>
+    <optgroup label="❌ 舊生方案（免教材費 $0 - 本學期暫不開放）">
+        <option value="old_1.0" disabled>舊生原價 ($28,220) - 暫不開放</option>
+        <option value="old_0.9" disabled>舊生 9 折 ($25,398) - 暫不開放</option>
+        <option value="old_0.85" disabled>舊生 85 折 ($23,987) - 暫不開放</option>
+        <option value="old_0.8" disabled>舊生 8 折 ($22,576) - 暫不開放</option>
+    </optgroup>
+</select>
                             </td>
                         </tr>
                         <tr>

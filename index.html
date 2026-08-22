@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -21,7 +21,6 @@
         }
         
         * { 
-            box-shadow: none; 
             box-sizing: border-box; 
             font-family: 'Inter', 'Noto Sans TC', 'Helvetica Neue', Arial, 'Microsoft JhengHei', sans-serif; 
             -webkit-font-smoothing: antialiased;
@@ -563,6 +562,7 @@ document.getElementById('contract_parent_name').addEventListener('input', functi
     document.getElementById('reviewParentEn').innerText = this.value || '[Parent]';
 });
 
+// 🎯 核心修復：使用連線承諾 (Promise) 確保 GAS 電子簽章備份完畢後才放行 FormSubmit 提交
 function prepareSubmit(event) {
     if (isCanvasBlank(parentCanvas) && parentCanvas.style.display !== 'none') {
         if(event) event.preventDefault();
@@ -604,17 +604,28 @@ function prepareSubmit(event) {
     };
 
     var newGoogleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbw3eCiS6iHdO0yr9juNPGrwQhDoJYheE4PF0u4O4fadvI3ubv1HkZfsB6LmuzWs4BExRA/exec";
-    
-    try {
-        fetch(newGoogleAppsScriptUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-    } catch(err) { console.warn("GAS fetch error:", err); }
 
-    return true;
+    // 🎯 阻止表單預設直接跳轉，改由非同步 fetch 完成後才提交 FormSubmit！
+    if (event) event.preventDefault();
+    
+    var submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerText = "資料處理與電子簽章歸檔中... 請稍候";
+
+    fetch(newGoogleAppsScriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).then(function() {
+        // GAS 傳送完成後，正式放行表單提交給 FormSubmit 發送 Email
+        document.getElementById('contractForm').submit();
+    }).catch(function(err) {
+        console.warn("GAS fetch notice:", err);
+        document.getElementById('contractForm').submit();
+    });
+
+    return false;
 }
 
 window.onload = function() {

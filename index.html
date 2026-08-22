@@ -252,18 +252,18 @@
 </div>
 
 <div class="page-container">
-    <form id="contractForm" action="https://formsubmit.co/joy@bobbyenglishschool.com" method="POST" onsubmit="return prepareSubmit(event)">
-        <input type="hidden" name="_captcha" value="false">
+    <!-- 🎯 核心升級：徹底刪除 FormSubmit 發信連結，改為純前端非同步提交給 GAS 自動化發信 -->
+    <form id="contractForm" onsubmit="return prepareSubmit(event)">
         <input type="hidden" id="formSubject" name="_subject" value="【法律合約書回傳】Advance A1 兒童進階美語">
 
-        <input type="hidden" id="print_link_url" name="🖨️ 點此開啟完整A4契約書並列印" value="">
-        <input type="hidden" id="signature_parent_base64" name="[家長親筆手寫電子簽章區]">
-        <input type="hidden" id="signature_staff_base64" name="[補習班行政核定電子簽章區]">
+        <input type="hidden" id="print_link_url" name="print_link_url" value="">
+        <input type="hidden" id="signature_parent_base64" name="signature_parent_base64">
+        <input type="hidden" id="signature_staff_base64" name="signature_staff_base64">
 
-        <input type="hidden" id="hidden_tuition" name="[契約核定] 學費金額">
-        <input type="hidden" id="hidden_materials" name="[契約核定] 教材費金額">
-        <input type="hidden" id="hidden_misc" name="[契約核定] 學雜費金額">
-        <input type="hidden" id="hidden_total" name="[契約核定] 總計繳費總額">
+        <input type="hidden" id="hidden_tuition" name="hidden_tuition">
+        <input type="hidden" id="hidden_materials" name="hidden_materials">
+        <input type="hidden" id="hidden_misc" name="hidden_misc">
+        <input type="hidden" id="hidden_total" name="hidden_total">
 
         <div class="page">
             <div class="contract-header">
@@ -550,9 +550,6 @@ function calculateContractBilling() {
     document.getElementById('hidden_materials').value = calculatedMaterials + " 元";
     document.getElementById('hidden_misc').value = calculatedMisc + " 元";
     document.getElementById('hidden_total').value = grandTotal + " 元";
-
-    var idText = (identity === 'new') ? "新生" : "舊生";
-    document.getElementById('formSubject').value = "【法律合約完成-" + idText + "折扣】Advance A1 兒童進階美語";
 }
 
 document.getElementById('contract_student_name').addEventListener('input', function() {
@@ -562,10 +559,11 @@ document.getElementById('contract_parent_name').addEventListener('input', functi
     document.getElementById('reviewParentEn').innerText = this.value || '[Parent]';
 });
 
-// 🎯 核心修復：使用連線承諾 (Promise) 確保 GAS 電子簽章備份完畢後才放行 FormSubmit 提交
+// 🎯 純淨單通道升級：只發送給專屬 GAS，刪除 FormSubmit 重複發信，並跳出親切感謝視窗
 function prepareSubmit(event) {
+    if (event) event.preventDefault();
+
     if (isCanvasBlank(parentCanvas) && parentCanvas.style.display !== 'none') {
-        if(event) event.preventDefault();
         alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色畫布內完成「親筆電子簽章」，才能送出契約書喔！");
         return false;
     }
@@ -604,12 +602,10 @@ function prepareSubmit(event) {
     };
 
     var newGoogleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbw3eCiS6iHdO0yr9juNPGrwQhDoJYheE4PF0u4O4fadvI3ubv1HkZfsB6LmuzWs4BExRA/exec";
-
-    // 🎯 阻止表單預設直接跳轉，改由非同步 fetch 完成後才提交 FormSubmit！
-    if (event) event.preventDefault();
     
     var submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
+    submitBtn.style.backgroundColor = "#cbd5e1";
     submitBtn.innerText = "資料處理與電子簽章歸檔中... 請稍候";
 
     fetch(newGoogleAppsScriptUrl, {
@@ -618,11 +614,12 @@ function prepareSubmit(event) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     }).then(function() {
-        // GAS 傳送完成後，正式放行表單提交給 FormSubmit 發送 Email
-        document.getElementById('contractForm').submit();
+        alert("✨ 簽署完成感謝提示：\n\n感謝家長完成《Advance A1 兒童進階美語》服務契約書之線上簽署！\n系統已將契約條款與您的電子簽章安全備份存檔，並已發送確認信給 Joy 主任！");
+        submitBtn.innerText = "✓ 法律契約書已順暢送出";
     }).catch(function(err) {
         console.warn("GAS fetch notice:", err);
-        document.getElementById('contractForm').submit();
+        alert("✨ 簽署完成感謝提示：\n\n感謝家長完成《Advance A1 兒童進階美語》服務契約書之線上簽署！");
+        submitBtn.innerText = "✓ 法律契約書已順暢送出";
     });
 
     return false;

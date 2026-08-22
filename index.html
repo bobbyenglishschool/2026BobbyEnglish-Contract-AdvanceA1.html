@@ -528,31 +528,39 @@ function numberToChinese(num) {
     return result.replace(/零[拾佰仟]/g, '零').replace(/零+/g, '零').replace(/零$/, '');
 }
 
+// JS 即時精算與全欄位+第5條連動函式 (A1：34堂課)
 function calculateContractBilling() {
     var selectedValue = document.getElementById('discountSelector').value;
     var parts = selectedValue.split('_');
-    var identity = parts[0];
-    var discountRatio = parseFloat(parts[1]);
+    var identity = parts[0]; // new, oldmat, old
+    var discountRatio = parseFloat(parts[1]); // 1.0, 0.9, 0.85, 0.8
 
     var pricePerLesson = 770;
     var lessons = 34;
-    var rawTuition = pricePerLesson * lessons;
-    var rawMaterials = (identity === 'new') ? 3520 : 0;
-    var rawMisc = 60 * lessons;
+    var rawTuition = pricePerLesson * lessons; // $26,180
+    var rawMaterials = (identity === 'old') ? 0 : 3520; // 只有禁用的 old 為 0，其餘 new 與 oldmat 均含 $3,520
+    var rawMisc = 60 * lessons; // $2,040
     
     var calculatedTuition = Math.round(rawTuition * discountRatio);
     var calculatedMaterials = Math.round(rawMaterials * discountRatio);
     var calculatedMisc = Math.round(rawMisc * discountRatio);
     var grandTotal = Math.round((rawTuition + rawMaterials + rawMisc) * discountRatio);
 
+    // 1. 更新第一區表格 4 個金額欄位
     document.getElementById('td_tuition').innerText = "NT$ " + calculatedTuition.toLocaleString() + " 元";
     document.getElementById('td_materials').innerText = "NT$ " + calculatedMaterials.toLocaleString() + " 元";
     document.getElementById('td_misc').innerText = "NT$ " + calculatedMisc.toLocaleString() + " 元";
     document.getElementById('td_total').innerText = "NT$ " + grandTotal.toLocaleString() + " 元";
     
-    document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
-    document.getElementById('legal_total_words').innerText = numberToChinese(grandTotal);
+    // 2. 完美連動第二區第五條條文（數字與中文國字大寫）
+    if (document.getElementById('legal_total_zh')) {
+        document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
+    }
+    if (document.getElementById('legal_total_words')) {
+        document.getElementById('legal_total_words').innerText = numberToChinese(grandTotal);
+    }
 
+    // 3. 同步寫入隱藏表單傳遞給 GAS 後端
     document.getElementById('hidden_tuition').value = calculatedTuition + " 元";
     document.getElementById('hidden_materials').value = calculatedMaterials + " 元";
     document.getElementById('hidden_misc').value = calculatedMisc + " 元";

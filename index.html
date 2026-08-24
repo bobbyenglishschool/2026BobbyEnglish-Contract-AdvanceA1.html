@@ -37,14 +37,18 @@
         td { position: relative; text-align: left; width: 25%; background-color: #fff; font-weight: 600; }
         .static-course-cell { font-weight: 800; color: var(--uci-blue); font-size: 13.5px; text-align: center !important; display: flex; flex-direction: column; align-items: center !important; justify-content: center !important; height: 100%; padding: 4px 0; word-break: keep-all; }
         .select-input { font-size: 12.5px; font-weight: 800; color: var(--uci-blue); cursor: pointer; background-color: #e6f0fa; border: 1px solid #1b3d6d; border-radius: 4px; width: 100%; padding: 6px 4px; outline: none; }
-        .privacy-statement { background-color: #f0f4f8; padding: 14px 18px; border-left: 4.5px solid var(--uci-blue); border: 1px solid #1b3d6d !important; font-size: 13.5px; margin-bottom: 20px; border-radius: 6px; line-height: 1.65; font-weight: 500; text-align: justify; }
+        
+        /* 隱私聲明與抗孤行連動日期樣式 */
+        .privacy-statement { background-color: #f0f4f8; padding: 14px 18px; border-left: 4.5px solid var(--uci-blue); border: 1px solid #1b3d6d !important; font-size: 13.5px; margin-bottom: 20px; border-radius: 6px; line-height: 1.65; font-weight: 500; text-align: justify; word-break: keep-all; }
         .privacy-statement strong { font-weight: 800; color: var(--uci-blue); }
-        .privacy-statement span { font-family: 'Inter', sans-serif; font-size: 11.5px; color: var(--text-sub); display: block; margin-top: 4px; font-weight: 400; }
+        .privacy-statement span.en-block { font-family: 'Inter', sans-serif; font-size: 11.5px; color: var(--text-sub); display: block; margin-top: 4px; font-weight: 400; word-break: keep-all; }
+        .date-inline { white-space: nowrap; display: inline-block; font-weight: bold; color: var(--uci-blue); }
+
         .legal-box { border: 1px solid #1b3d6d !important; background-color: #fafbfc; padding: 20px; height: 420px; overflow-y: scroll; -webkit-overflow-scrolling: touch; font-size: 13px; line-height: 1.7; text-align: left; margin-bottom: 20px; border-radius: 8px; }
         .legal-item { margin-bottom: 20px; border-bottom: 1px dashed #1b3d6d; padding-bottom: 15px; font-weight: 500; }
         .legal-item:last-child { border-bottom: none; }
         .legal-item strong { color: var(--uci-blue); font-size: 14px; font-weight: 800; letter-spacing: 0.3px; word-break: keep-all; }
-        .legal-en { color: var(--text-sub); display: block; margin-top: 5px; font-size: 11.5px; font-weight: 400; line-height: 1.55; letter-spacing: 0.1px; font-family: 'Inter', sans-serif; }
+        .legal-en { color: var(--text-sub); display: block; margin-top: 5px; font-size: 11.5px; font-weight: 400; line-height: 1.55; letter-spacing: 0.1px; font-family: 'Inter', sans-serif; word-break: keep-all; }
         .dual-signature-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; width: 100%; margin-top: 15px; margin-bottom: 20px; }
         .signature-block { width: 48%; display: flex; flex-direction: column; }
         .signature-label { font-size: 13.5px; color: var(--uci-blue); font-weight: 800; margin-bottom: 8px; letter-spacing: 0.3px; word-break: keep-all; }
@@ -102,10 +106,11 @@
                 <p style="font-size: 11px; color: var(--text-sub); margin: 10px 0 0 0; font-weight: 500;">(依據教育部短期補習班補習服務契約書範本與桃園市最新設立及管理法規制定-2026年9月最新核定版)</p>
             </div>
 
+            <!-- 修正：日期標籤無縫緊密銜接，避免斷行與錯位 -->
             <div class="privacy-statement">
                 <strong>【重要權益：契約審閱權】 / Contract Review Right</strong><br>
-                本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: bold; color: var(--uci-blue);">115</span> 年 <span id="reviewMonthDisplay" style="font-weight: bold; color: var(--uci-blue);">8</span> 月 <span id="reviewDayDisplay" style="font-weight: bold; color: var(--uci-blue);">23</span> 日由學員 <input type="text" id="contract_student_name" name="contract_student_name" placeholder="請填學生中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required oninput="updateNameDisplay()"> 及監護人 <input type="text" id="contract_parent_name" name="contract_parent_name" placeholder="請填家長中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required oninput="updateNameDisplay()"> 攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
-                <span>This standard contract was taken home for review by student <span id="reviewStudentEn" style="font-weight:bold; color:var(--uci-blue);">[Student]</span> and guardian <span id="reviewParentEn" style="font-weight:bold; color:var(--uci-blue);">[Parent]</span> on Minguo <span id="reviewYearDisplayEn">115</span>/<span id="reviewMonthDisplayEn">8</span>/<span id="reviewDayDisplayEn">23</span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
+                本定型化契約書於中華民國<span class="date-inline"><span id="reviewYearDisplay">115</span>年<span id="reviewMonthDisplay">8</span>月<span id="reviewDayDisplay">24</span>日</span>由學員 <input type="text" id="contract_student_name" name="contract_student_name" placeholder="請填學生中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required oninput="updateNameDisplay()"> 及監護人 <input type="text" id="contract_parent_name" name="contract_parent_name" placeholder="請填家長中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required oninput="updateNameDisplay()"> 攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
+                <span class="en-block">This standard contract was taken home for review by student <span id="reviewStudentEn" style="font-weight:bold; color:var(--uci-blue);">[Student]</span> and guardian <span id="reviewParentEn" style="font-weight:bold; color:var(--uci-blue);">[Parent]</span> on Minguo <span class="date-inline"><span id="reviewYearDisplayEn">115</span>/<span id="reviewMonthDisplayEn">8</span>/<span id="reviewDayDisplayEn">24</span></span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
             </div>
 
             <div class="section-title">一、選讀班級、科目與學費核定明細 / Course & Billing Details</div>
